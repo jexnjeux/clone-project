@@ -6,7 +6,8 @@ const palette = {
   grey: '#767676',
   lightGrey: '#d1d1d1',
   white: '#fff',
-  red: '#f15151',
+  lignthBlue: '#f2f4f6',
+  red: '#ec5642',
 };
 
 const font = {
@@ -16,6 +17,14 @@ const font = {
   lg: '40px',
 };
 
-const theme: DefaultTheme = { palette, font };
+const size = { sm: '640px', md: '768px', lg: '1024px' };
+
+const breakpoint = {
+  sm: `(min-width: ${size.sm})`,
+  md: `(min-width: ${size.md})`,
+  la: `(min-width: ${size.lg})`,
+};
+
+const theme: DefaultTheme = { palette, font, breakpoint };
 
 export default theme;
