@@ -37,33 +37,22 @@ a {
   color: inherit;
 }
 button {
-        border: 0;
-        background: transparent;
-        cursor: pointer;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 /* 모바일 스타일 (기본) */
+html {
+  font-size: 16px;
+}
 body {
     margin: 0;
     padding: 0;
 		background-color: ${(props) => props.theme.palette.background};
 		line-height: 1;
-    color: ${(props) => props.theme.palette.gray600};
-    font-size: ${(props) => props.theme.font.xs};
-  }
-
-  /* 태블릿 스타일 */
-  @media (min-width: 768px) {
-    body {
-      font-size: ${(props) => props.theme.font.sm};
-    }
-  }
-
-  /* 데스크탑 스타일 */
-  @media (min-width: 1024px) {
-    body {
-      font-size: ${(props) => props.theme.font.md};
-    }
+    color: ${(props) => props.theme.palette.black};
   }
 `;
 

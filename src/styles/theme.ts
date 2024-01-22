@@ -2,7 +2,7 @@ import { DefaultTheme } from 'styled-components';
 
 const palette = {
   background: '#fff',
-  black: '#111',
+  black: '#2c3342',
   gray200: '#eceef1',
   gray400: '#dddee1',
   gray600: '#7f8998',
@@ -12,10 +12,17 @@ const palette = {
 };
 
 const font = {
-  xs: '10px',
-  sm: '12px',
-  md: '16px',
-  lg: '20px',
+  xs: '0.625rem', // 10px
+  sm: '0.75rem', // 12px
+  md: '1rem', // 16px
+  lg: '1.25rem', // 20px
+};
+
+const spacing = {
+  xs: '0.25rem', // 4px
+  sm: '0.5rem', // 8px
+  md: '0.75rem', // 12px
+  ld: '1rem', // 16px
 };
 
 const size = { sm: '640px', md: '768px', lg: '1024px' };
@@ -26,6 +33,6 @@ const breakpoint = {
   la: `(min-width: ${size.lg})`,
 };
 
-const theme: DefaultTheme = { palette, font, breakpoint };
+const theme: DefaultTheme = { palette, font, spacing, breakpoint };
 
 export default theme;
