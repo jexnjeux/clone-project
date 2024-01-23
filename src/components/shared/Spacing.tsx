@@ -6,7 +6,7 @@ interface SpacingProps {
 }
 
 const Spacing = styled.div<SpacingProps>`
-  ${({ size, direction = 'horizontal ' }) =>
+  ${({ size, direction = 'horizontal' }) =>
     direction === 'horizontal' ? `width: ${size}px` : `height: ${size}px`}
 `;
 
