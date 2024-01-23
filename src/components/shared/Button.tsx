@@ -5,7 +5,7 @@ import { buttonColorMap, buttonSizeMap } from '../../styles/button';
 interface ButtonProps {
   children: React.ReactNode;
   $solid?: boolean;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const Button = styled.button<ButtonProps>`
