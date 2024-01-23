@@ -52,7 +52,7 @@ body {
     padding: 0;
 		background-color: ${(props) => props.theme.palette.background};
 		line-height: 1;
-    color: ${(props) => props.theme.palette.black};
+    color: ${(props) => props.theme.palette.gray600};
   }
 `;
 
