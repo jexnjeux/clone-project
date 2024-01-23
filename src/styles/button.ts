@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 const baseButtonColor = css`
-  border-radius: 4px;
+  border-radius: 6px;
   color: ${({ theme }) => theme.palette.gray600};
   font-weight: bold;
 `;
@@ -27,6 +27,10 @@ export const buttonSizeMap = {
   md: css`
     padding: 4px 8px;
     font-size: ${({ theme }) => theme.font.sm};
+  `,
+  lg: css`
+    padding: 6px 10px;
+    font-size: ${({ theme }) => theme.font.md};
   `,
 };
 
