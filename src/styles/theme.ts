@@ -35,4 +35,9 @@ const breakpoint = {
 
 const theme: DefaultTheme = { palette, font, spacing, breakpoint };
 
+export type PaletteTypes = typeof palette;
+export type FontTypes = typeof font;
+export type SpacingTypes = typeof spacing;
+export type BreakpointTypes = typeof breakpoint;
+
 export default theme;
