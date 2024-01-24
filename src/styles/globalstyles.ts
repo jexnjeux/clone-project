@@ -42,16 +42,23 @@ button {
   background: transparent;
   cursor: pointer;
 }
+input {
+	padding-left: 10px;
+	outline: none;
+	border: none;
+	border-radius: 8px;
+	color: ${({ theme }) => theme.palette.black};
+	font-size: ${({ theme }) => theme.font.md}
+}
 
 /* 모바일 스타일 (기본) */
 html {
-  font-size: 16px;
+
 }
 body {
     margin: 0;
     padding: 0;
 		background-color: ${(props) => props.theme.palette.background};
-		line-height: 1;
     color: ${(props) => props.theme.palette.gray600};
   }
 `;
