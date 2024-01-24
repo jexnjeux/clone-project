@@ -79,7 +79,8 @@ export default Menu;
 
 const Container = styled.div`
   position: sticky;
-  top: 0;
+  top: 76px;
+  background-color: ${({ theme }) => theme.palette.background};
   z-index: 10;
 `;
 
