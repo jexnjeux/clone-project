@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Button from './Button';
 import Spacing from './Spacing';
@@ -5,36 +6,33 @@ import StyledOutlinedHeartIcon from '../../assets/StyledOutlinedHeartIcon';
 
 function Header() {
   return (
-    <>
-      <HeaderContainer>
-        <HeaderWrapper>
-          <Nav>
-            {/* TODO: 로고 클릭 시 검색(메인)페이지로 이동 */}
-            <LeftSection>
-              <img src="/public/images/logo.png" alt="logo" width={120} />
-            </LeftSection>
-            <RightSection>
-              <Button $solid size="lg">
-                사진제출
-              </Button>
-              <Spacing size={10} />
-              <Button size="lg">
-                <BookmarkButtonWrap>
-                  <BookmarkText>북마크</BookmarkText>
-                  <Spacing size={4} />
-                  <StyledOutlinedHeartIcon />
-                </BookmarkButtonWrap>
-              </Button>
+    <HeaderContainer>
+      <HeaderWrapper>
+        <Nav>
+          <Link to="/">
+            <img src="/public/images/logo.png" alt="logo" width={120} />
+          </Link>
+          <RightSection>
+            <Button $solid size="lg">
+              사진제출
+            </Button>
+            <Spacing size={10} />
+            <Button size="lg">
+              <BookmarkButtonWrap>
+                <BookmarkText>북마크</BookmarkText>
+                <Spacing size={4} />
+                <StyledOutlinedHeartIcon />
+              </BookmarkButtonWrap>
+            </Button>
 
-              <Spacing size={10} />
-              <div>
-                <UserInfo>Evie | evie@willog.io</UserInfo>
-              </div>
-            </RightSection>
-          </Nav>
-        </HeaderWrapper>
-      </HeaderContainer>
-    </>
+            <Spacing size={10} />
+            <div>
+              <UserInfo>Evie | evie@willog.io</UserInfo>
+            </div>
+          </RightSection>
+        </Nav>
+      </HeaderWrapper>
+    </HeaderContainer>
   );
 }
 
@@ -43,6 +41,7 @@ export default Header;
 const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
+  z-index: 10;
 `;
 
 const HeaderWrapper = styled.div`
@@ -57,9 +56,6 @@ const Nav = styled.nav`
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   gap: 1rem;
-`;
-const LeftSection = styled.div`
-  cursor: pointer;
 `;
 
 const RightSection = styled.div`
