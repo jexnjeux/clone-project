@@ -2,7 +2,12 @@ import { styled } from 'styled-components';
 import Spacing from '../shared/Spacing';
 import SearchIcon from '../../assets/icons/SearchIcon';
 
-function Search() {
+interface SearchProps {
+  onChangeSearchTerms: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  updateImageState: () => Promise<void>;
+}
+
+function Search({ onChangeSearchTerms, updateImageState }: SearchProps) {
   return (
     <Top>
       <ContentContainer>
@@ -17,8 +22,8 @@ function Search() {
                 </Description>
                 <Spacing direction="vertical" size={16} />
                 <SearchBox>
-                  <StyledInput />
-                  <Button>
+                  <StyledInput onChange={onChangeSearchTerms} />
+                  <Button onClick={() => void updateImageState()}>
                     <SearchIcon />
                   </Button>
                 </SearchBox>
