@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { styled } from 'styled-components';
 import Dimmed from './Dimmed';
-import StyledCloseIcon from '../../assets/CloseIcon';
+import StyledCloseIcon from '../../assets/icons/CloseIcon';
 
 interface ModalProps {
   open?: boolean;

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Button from './Button';
 import Spacing from './Spacing';
-import StyledOutlinedHeartIcon from '../../assets/StyledOutlinedHeartIcon';
+import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
 
 function Header() {
   return (
