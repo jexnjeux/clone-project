@@ -60,6 +60,7 @@ body {
     padding: 0;
 		background-color: ${(props) => props.theme.palette.background};
     color: ${(props) => props.theme.palette.gray600};
+		line-height: 1.5;
   }
 `;
 
