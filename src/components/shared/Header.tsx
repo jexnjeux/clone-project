@@ -41,6 +41,7 @@ export default Header;
 const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
+  height: 76px;
   z-index: 10;
 `;
 
