@@ -1,5 +1,5 @@
 import instance from '..';
-import { Image, SearchAxiosResponse, SearchResponse } from '../../types/image';
+import { Image, SearchAxiosResponse, SearchResponse } from '../../types/search';
 
 export const fetchImages = async (
   query: string,
@@ -23,13 +23,13 @@ export const fetchImages = async (
       liked_by_user: item.liked_by_user,
       urls: item.urls,
       links: item.links,
-      tags: item.tags,
+      tags: item.tags.map((tag) => tag.title),
       width: item.width,
       height: item.height,
       user: item.user,
       likes: item.likes,
     }));
-    console.log({ images });
+
     return {
       results: images,
       total: data.total,

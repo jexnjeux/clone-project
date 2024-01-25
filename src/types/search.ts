@@ -139,7 +139,7 @@ export interface ImageItem {
   liked_by_user: boolean;
   urls: Urls;
   links: Links;
-  tags: Tag[];
+  tags: string[];
   width: number;
   height: number;
   user: User;

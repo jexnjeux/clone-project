@@ -16,6 +16,7 @@ const font = {
   sm: '0.75rem', // 12px
   md: '1rem', // 16px
   lg: '1.25rem', // 20px
+  lg2: '1.5rem', // 24px
 };
 
 const spacing = {
@@ -25,6 +26,7 @@ const spacing = {
   lg: '1rem', // 16px
   xl: '1.25rem', // 20px
   xl2: '2.5rem', // 40px
+  xl3: '6rem', //
 };
 
 const size = { sm: '640px', md: '768px', lg: '1024px' };

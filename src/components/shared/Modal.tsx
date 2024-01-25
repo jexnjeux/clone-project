@@ -35,7 +35,7 @@ function Modal({ isOpen, content, closeModal }: ModalProps) {
             <CloseButton onClick={closeModal}>
               <StyledCloseIcon />
             </CloseButton>
-            <div>{content}</div>
+            <ContentWrapper>{content}</ContentWrapper>
           </Container>
         </>,
         modalRoot,
@@ -50,9 +50,10 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   width: 85vw;
   height: 90vh;
-  padding: ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.xl2};
   background-color: ${({ theme }) => theme.palette.white};
   border-radius: 8px;
   overflow: hidden;
@@ -60,7 +61,15 @@ const Container = styled.div`
 `;
 
 const CloseButton = styled.button`
+  margin-top: 5px;
   margin-right: ${({ theme }) => theme.spacing.md};
+  width: 20px;
+  height: 20px;
 `;
 
+const ContentWrapper = styled.div`
+  flex-grow: 1;
+  padding: 0 2rem;
+  height: 100%;
+`;
 export default Modal;

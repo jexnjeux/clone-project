@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchImages } from '../apis/main/search';
-import { ImageItem } from '../types/image';
+import { ImageItem } from '../types/search';
 
 const useSearch = () => {
   const [searchTerms, setSearchTerms] = useState('');
