@@ -2,15 +2,26 @@ import ReactDOM from 'react-dom';
 import { styled } from 'styled-components';
 import Dimmed from './Dimmed';
 import StyledCloseIcon from '../../assets/icons/CloseIcon';
+import { useEffect, useRef } from 'react';
 
 interface ModalProps {
-  open?: boolean;
+  isOpen?: boolean;
   content?: React.ReactNode;
   closeModal: () => void;
 }
 
-function Modal({ open, content, closeModal }: ModalProps) {
-  if (!open) {
+function Modal({ isOpen, content, closeModal }: ModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      console.log({ scrollY });
+      modalRef.current.style.top = `${scrollY + window.innerHeight / 2}px`;
+    }
+  }, [isOpen]);
+
+  if (!isOpen) {
     return;
   }
 
@@ -20,7 +31,7 @@ function Modal({ open, content, closeModal }: ModalProps) {
     ? ReactDOM.createPortal(
         <>
           <Dimmed />
-          <Container>
+          <Container ref={modalRef}>
             <CloseButton onClick={closeModal}>
               <StyledCloseIcon />
             </CloseButton>
@@ -45,7 +56,7 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.palette.white};
   border-radius: 8px;
   overflow: hidden;
-  z-index: 5;
+  z-index: 15;
 `;
 
 const CloseButton = styled.button`
