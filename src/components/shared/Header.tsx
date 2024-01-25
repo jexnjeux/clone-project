@@ -18,11 +18,13 @@ function Header() {
             </Button>
             <Spacing size={10} />
             <Button size="lg">
-              <BookmarkButtonWrap>
-                <BookmarkText>북마크</BookmarkText>
-                <Spacing size={4} />
-                <StyledOutlinedHeartIcon />
-              </BookmarkButtonWrap>
+              <Link to="/bookmark">
+                <BookmarkButtonWrap>
+                  <BookmarkText>북마크</BookmarkText>
+                  <Spacing size={4} />
+                  <StyledOutlinedHeartIcon />
+                </BookmarkButtonWrap>
+              </Link>
             </Button>
 
             <Spacing size={10} />
