@@ -6,17 +6,18 @@ interface ImageProps {
   url: string;
   alt: string;
   liked?: boolean;
+  onClick: () => void;
 }
 
-function Image({ url, alt, liked = false }: ImageProps) {
+function Image({ url, alt, liked, onClick }: ImageProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Thumbnail src={url} alt={alt} />
       <IconContainer>
         {liked ? (
           <StyeldSolidHeartIcon />
         ) : (
-          <StyledOutlinedHeartIcon width="20px" color="white" />
+          <StyledOutlinedHeartIcon width="20px" colorname="white" />
         )}
       </IconContainer>
     </Container>
@@ -29,6 +30,7 @@ const Container = styled.div`
   width: 160px;
   height: 160px;
   position: relative;
+  cursor: pointer;
 `;
 
 const Thumbnail = styled.img`

@@ -12,7 +12,7 @@ const Container = styled.div`
   left: 0;
   background-color: ${({ theme }) => theme.palette.black};
   opacity: 0.5;
-  z-index: 4;
+  z-index: 12;
 `;
 
 export default Dimmed;

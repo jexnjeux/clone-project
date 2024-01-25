@@ -139,12 +139,13 @@ export interface ImageItem {
   liked_by_user: boolean;
   urls: Urls;
   links: Links;
-  tags: Tag[];
+  tags: string[];
   width: number;
   height: number;
   user: User;
   likes: number;
 }
+
 export interface SearchAxiosResponse {
   results: Image[];
   total: number;
@@ -155,4 +156,128 @@ export interface SearchResponse {
   results: ImageItem[];
   total: number;
   total_pages: number;
+}
+
+// 이미지 상세
+export interface PhotoAxiosResponse {
+  alt_description: string | null;
+  blur_hash: string;
+  breadcrumbs: Breadcrumbs[];
+  color: string;
+  created_at: string;
+  current_user_collections: UserCollections[];
+  description: string | null;
+  downloads: number;
+  exif: {
+    aperture: string;
+    exposure_time: string;
+    focal_length: string;
+    iso: number;
+    make: string;
+    model: string;
+    name: string;
+  };
+  height: number;
+  id: string;
+  liked_by_user: boolean;
+  likes: number;
+  links: Links;
+  location: {
+    city: string | null;
+    country: string | null;
+    name: string | null;
+    position: {
+      latitude: number | null;
+      longitude: number | null;
+    };
+  };
+  meta: {
+    index: boolean;
+  };
+  promoted_at: string | null;
+  public_domain: boolean;
+  related_collections: {
+    total: number;
+    type: string;
+    results: RelatedCollectionsResult[];
+  };
+  slug: string;
+  sponsorship: string | null; // 모름
+  tags: Tag[];
+  tags_preview: Tag[];
+  topic_submissions?: TopicSubmissions;
+  topics: Topic[];
+  updated_at: string;
+  urls: Urls;
+  user: User;
+  views: number;
+  width: number;
+}
+
+interface UserCollections {
+  id: number;
+  title: string;
+  published_at: string;
+  last_collected_at: string;
+  updated_at: string;
+  cover_photo: string | null;
+  user: User | null;
+}
+
+interface Breadcrumbs {
+  index: number;
+  slug: string;
+  title: string;
+  type: string;
+}
+
+interface RelatedCollectionsResult {
+  cover_photo: Image;
+  description: string | null;
+  featured: boolean;
+  id: string;
+  last_collected_at: string;
+  links: {
+    html: string;
+    photos: string;
+    related: string;
+    self: string;
+  };
+  preview_photos: {
+    blur_hash: string;
+    created_at: string;
+    id: string;
+    slug: string;
+    updated_at: string;
+    urls: Urls;
+  }[];
+  private: boolean;
+  published_at: string;
+  share_key: string;
+  tags: Tag;
+  title: string;
+  total_photos: number;
+  updated_at: string;
+  user: User;
+}
+
+interface Topic {
+  id: string;
+  slug: string;
+  title: string;
+  visibility: string;
+}
+
+export interface PhotoResponse {
+  id: string;
+  alt_description: string;
+  created_at: string;
+  downloads: number;
+  height: number;
+  width: number;
+  liked_by_user: boolean;
+  links: Links;
+  urls: Urls;
+  tags: string[];
+  user: User;
 }
