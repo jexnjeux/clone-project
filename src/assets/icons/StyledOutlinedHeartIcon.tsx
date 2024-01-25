@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
-  colorName?: keyof DefaultTheme['palette'];
+  colorname?: keyof DefaultTheme['palette'];
 }
 
 function OutlinedHeartIcon({ ...props }: IconProps) {
@@ -21,8 +21,8 @@ function OutlinedHeartIcon({ ...props }: IconProps) {
 
 const StyledOutlinedHeartIcon = styled(OutlinedHeartIcon)`
   width: ${({ width }) => width ?? '20px'};
-  fill: ${({ theme, colorName }) =>
-    colorName ? theme.palette[colorName] : theme.palette.gray600};
+  fill: ${({ theme, colorname }) =>
+    colorname ? theme.palette[colorname] : theme.palette.gray600};
 `;
 
 export default StyledOutlinedHeartIcon;
