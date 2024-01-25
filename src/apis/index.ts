@@ -7,7 +7,7 @@ if (!accessKey) {
 }
 
 const instance = axios.create({
-  baseURL: 'https://api.unsplash.com/',
+  baseURL: 'https://api.unsplash.com',
   params: { client_id: accessKey },
 });
 
