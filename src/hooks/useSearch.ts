@@ -6,16 +6,15 @@ const useSearch = () => {
   const [searchTerms, setSearchTerms] = useState('');
   const [images, setImages] = useState<ImageItem[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const handleSearchTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchTerms(value);
   };
 
-  const updateImageState = async () => {
+  const loadImages = async (page: number) => {
     try {
-      const data = await fetchImages(searchTerms, currentPage);
+      const data = await fetchImages(searchTerms, page);
       setImages(data?.results ?? []);
       setTotalPages(data?.total_pages ?? 0);
     } catch (e) {
@@ -23,16 +22,10 @@ const useSearch = () => {
     }
   };
 
-  const changePage = (newPage: number) => {
-    setCurrentPage(newPage);
-    void updateImageState();
-  };
-
   return {
     searchTerms,
     handleSearchTermsChange,
-    updateImageState,
-    changePage,
+    loadImages,
     images,
     totalPages,
   };

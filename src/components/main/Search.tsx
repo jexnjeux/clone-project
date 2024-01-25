@@ -4,10 +4,10 @@ import SearchIcon from '../../assets/icons/SearchIcon';
 
 interface SearchProps {
   onChangeSearchTerms: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  updateImageState: () => Promise<void>;
+  onSearch: () => Promise<void>;
 }
 
-function Search({ onChangeSearchTerms, updateImageState }: SearchProps) {
+function Search({ onChangeSearchTerms, onSearch }: SearchProps) {
   return (
     <Top>
       <ContentContainer>
@@ -23,7 +23,7 @@ function Search({ onChangeSearchTerms, updateImageState }: SearchProps) {
                 <Spacing direction="vertical" size={16} />
                 <SearchBox>
                   <StyledInput onChange={onChangeSearchTerms} />
-                  <Button onClick={() => void updateImageState()}>
+                  <Button onClick={() => void onSearch()}>
                     <SearchIcon />
                   </Button>
                 </SearchBox>
