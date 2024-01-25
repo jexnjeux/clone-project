@@ -1,5 +1,5 @@
 import instance from '..';
-import { Image, SearchAxiosResponse, SearchResponse } from '../../types/search';
+import { Image, SearchAxiosResponse, SearchResponse } from '../../types/image';
 
 export const fetchImages = async (
   query: string,
@@ -11,6 +11,7 @@ export const fetchImages = async (
       page,
       per_page: 20,
       client_id: import.meta.env.VITE_ACCESS_KEY,
+      lang: 'ko',
     };
     const { data } = await instance.get<SearchAxiosResponse>('/search/photos', {
       params,

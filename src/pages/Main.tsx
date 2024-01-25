@@ -7,17 +7,27 @@ import Image from '../components/shared/Image';
 import ImageDetails from '../components/main/ImageDetails';
 import Modal from '../components/shared/Modal';
 import { useState } from 'react';
-import { ImageItem } from '../types/search';
+import { ImageItem, PhotoResponse } from '../types/image';
+import { fetchImageDetails } from '../apis/main/photo';
 
 function MainPage() {
   const { handleSearchTermsChange, updateImageState, images } = useSearch();
   const { openModal, closeModal, isOpen } = useModal();
 
-  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
+  const [selectedImage, setSelectedImage] = useState<PhotoResponse | null>(
+    null,
+  );
 
-  const handleClickImage = (image: ImageItem) => {
-    setSelectedImage(image);
-    openModal();
+  const handleClickImage = async (image: ImageItem) => {
+    const id = image.id;
+    try {
+      const data = await fetchImageDetails(id);
+      setSelectedImage(data ?? null);
+      openModal();
+    } catch (e) {
+      console.error(e);
+      setSelectedImage(null);
+    }
   };
 
   return (
@@ -42,7 +52,7 @@ function MainPage() {
                 alt={image.alt_description ?? image.id}
                 url={image.urls.thumb}
                 liked={image.liked_by_user}
-                onClick={() => handleClickImage(image)}
+                onClick={() => void handleClickImage(image)}
               />
             );
           })}

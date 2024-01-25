@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { ImageItem } from '../../types/search';
+import { PhotoResponse } from '../../types/image';
 import SolidHeartIcon from '../../assets/icons/SolidHeartIcon';
 import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
 import Button from '../shared/Button';
 import Spacing from '../shared/Spacing';
 
 interface ImageDetailsProps {
-  image: ImageItem | null;
+  image: PhotoResponse | null;
 }
 
 function ImageDetails({ image }: ImageDetailsProps) {
@@ -22,7 +22,12 @@ function ImageDetails({ image }: ImageDetailsProps) {
               <StyledOutlinedHeartIcon width={30} />
             )}
             <Button size="lg">
-              <a href={image.links.download_location} download>
+              <a
+                href={image.links.download}
+                download
+                target="_blank"
+                rel="noreferrer"
+              >
                 다운로드
               </a>
             </Button>
@@ -48,15 +53,15 @@ function ImageDetails({ image }: ImageDetailsProps) {
               <Value>{image.created_at}</Value>
             </ImageInfoBox>
             <ImageInfoBox>
-              <Label>북마크</Label>
-              <Value>{image.likes}</Value>
+              <Label>다운로드</Label>
+              <Value>{image.downloads}</Value>
             </ImageInfoBox>
           </ImageInfo>
           <Spacing size={24} direction="vertical" />
           <TagInfo>
             {image.tags.map((tag) => {
               return (
-                <Button key={tag} $solid size="md">
+                <Button $cursorunset key={tag} $solid size="md">
                   {tag}
                 </Button>
               );

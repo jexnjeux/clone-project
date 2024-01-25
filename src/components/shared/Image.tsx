@@ -17,7 +17,7 @@ function Image({ url, alt, liked, onClick }: ImageProps) {
         {liked ? (
           <StyeldSolidHeartIcon />
         ) : (
-          <StyledOutlinedHeartIcon width="20px" colorName="white" />
+          <StyledOutlinedHeartIcon width="20px" colorname="white" />
         )}
       </IconContainer>
     </Container>
