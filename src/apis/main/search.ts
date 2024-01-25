@@ -1,4 +1,5 @@
 import instance from '..';
+import { IMAGES_PER_PAGE } from '../../constants/pagination';
 import { Image, SearchAxiosResponse, SearchResponse } from '../../types/image';
 
 export const fetchImages = async (
@@ -9,7 +10,7 @@ export const fetchImages = async (
     const params = {
       query,
       page,
-      per_page: 20,
+      per_page: IMAGES_PER_PAGE,
       client_id: import.meta.env.VITE_ACCESS_KEY,
       lang: 'ko',
     };
