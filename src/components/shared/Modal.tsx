@@ -29,7 +29,7 @@ function Modal({ isOpen, content, closeModal }: ModalProps) {
   return modalRoot
     ? ReactDOM.createPortal(
         <>
-          <Dimmed />
+          <Dimmed closeModal={closeModal} />
           <Container ref={modalRef}>
             <CloseButton onClick={closeModal}>
               <StyledCloseIcon />
