@@ -3,8 +3,14 @@ import { useState } from 'react';
 function useModal() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openModal = () => {
+    document.body.style.overflow = 'hidden';
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    document.body.style.overflow = '';
+    setIsOpen(false);
+  };
 
   return { isOpen, openModal, closeModal };
 }

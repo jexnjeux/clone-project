@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { fetchImages } from '../apis/main/search';
 import { ImageItem } from '../types/image';
 
@@ -12,15 +12,18 @@ const useSearch = () => {
     setSearchTerms(value);
   };
 
-  const loadImages = async (page: number) => {
-    try {
-      const data = await fetchImages(searchTerms, page);
-      setImages(data?.results ?? []);
-      setTotalPages(data?.total_pages ?? 0);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const loadImages = useCallback(
+    async (page: number) => {
+      try {
+        const data = await fetchImages(searchTerms, page);
+        setImages(data?.results ?? []);
+        setTotalPages(data?.total_pages ?? 0);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [searchTerms],
+  );
 
   return {
     searchTerms,
