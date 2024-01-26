@@ -1,7 +1,11 @@
 import { styled } from 'styled-components';
 
-function Dimmed() {
-  return <Container />;
+interface DimmedProps {
+  closeModal: () => void;
+}
+
+function Dimmed({ closeModal }: DimmedProps) {
+  return <Container onClick={closeModal} />;
 }
 
 const Container = styled.div`
