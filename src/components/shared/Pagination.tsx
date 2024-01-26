@@ -8,8 +8,8 @@ import { ELLIPSIS } from '../../constants/pagination';
 interface PaginationProps {
   totalPage: number;
   currentPage: number;
-  onChangePage: (page: number | string) => Promise<void>;
-  onClickArrow: (direction: 'left' | 'right') => Promise<void>;
+  onChangePage: (page: number | string) => void;
+  onClickArrow: (direction: 'left' | 'right') => void;
 }
 
 function Pagination({
