@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Button from './Button';
 import Spacing from './Spacing';
-import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
+import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 
 function Header() {
   return (
@@ -17,15 +17,17 @@ function Header() {
               사진제출
             </Button>
             <Spacing size={10} />
-            <Button size="lg">
-              <Link to="/bookmark">
+            <Link to="/bookmark">
+              <Button size="lg">
                 <BookmarkButtonWrap>
                   <BookmarkText>북마크</BookmarkText>
                   <Spacing size={4} />
-                  <StyledOutlinedHeartIcon />
+                  <ButtonContainer>
+                    <StyledHeartLineIcon />
+                  </ButtonContainer>
                 </BookmarkButtonWrap>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
 
             <Spacing size={10} />
             <div>
@@ -68,12 +70,19 @@ const RightSection = styled.div`
 
 const BookmarkButtonWrap = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const BookmarkText = styled.span`
   display: inline-block;
+  line-height: 1;
 `;
 
 const UserInfo = styled.span`
   font-weight: bold;
+`;
+
+const ButtonContainer = styled.div`
+  width: 20px;
+  height: 20px;
 `;

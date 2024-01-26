@@ -65,5 +65,4 @@ export default BookmarkPage;
 
 const Container = styled.div`
   padding-bottom: 24px;
-  border: 1px solid red;
 `;

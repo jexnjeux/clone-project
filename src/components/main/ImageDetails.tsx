@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { PhotoResponse } from '../../types/image';
-import SolidHeartIcon from '../../assets/icons/SolidHeartIcon';
-import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
 import Button from '../shared/Button';
 import Spacing from '../shared/Spacing';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
+import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
+import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 
 interface ImageDetailsProps {
   image: PhotoResponse;
@@ -23,13 +23,13 @@ function ImageDetails({ image }: ImageDetailsProps) {
         <Top>
           <Name>{image.user.name}</Name>
           <ButtonGroup>
-            <div onClick={(e) => handleBookmarkClick(e)}>
+            <IconContainer onClick={(e) => handleBookmarkClick(e)}>
               {getBookmarkStatus(image.id) ? (
-                <SolidHeartIcon />
+                <StyledHeartFillIcon colorname="red" />
               ) : (
-                <StyledOutlinedHeartIcon width={30} />
+                <StyledHeartLineIcon />
               )}
-            </div>
+            </IconContainer>
             <Button size="lg">
               <a
                 href={image.links.download}
@@ -144,4 +144,10 @@ const Value = styled.div`
 const TagInfo = styled.div`
   display: flex;
   gap: 16px;
+`;
+
+const IconContainer = styled.button`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 `;
