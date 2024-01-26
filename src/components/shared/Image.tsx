@@ -36,8 +36,8 @@ function Image({ image, url, alt, onClick }: ImageProps) {
 export default Image;
 
 const Container = styled.div`
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   position: relative;
   cursor: pointer;
 `;
