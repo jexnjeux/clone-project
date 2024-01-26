@@ -21,7 +21,6 @@ function Menu() {
       main: pathname === '/',
       menu: active.menu, // 현재 메뉴 상태 유지
     });
-    console.log({ pathname });
   }, [active.menu, pathname]);
   const handleMenuClick = (id: number, type: 'main' | 'menu') => {
     setActive(() => ({

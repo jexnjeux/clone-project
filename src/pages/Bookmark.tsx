@@ -8,10 +8,15 @@ import Images from '../components/main/Images';
 import Image from '../components/shared/Image';
 import { useBookmarkStore } from '../stores/bookmark';
 import { fetchImageDetails } from '../apis/main/photo';
+import Spacing from '../components/shared/Spacing';
+import Pagination from '../components/shared/Pagination';
+import { IMAGES_PER_PAGE } from '../constants/pagination';
+import { calculatePagination } from '../utils/paginationUtils';
 
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
@@ -26,7 +31,22 @@ function BookmarkPage() {
     }
   };
 
+  const handlePageChange = (page: number | string) => {
+    if (typeof page === 'string' || page < 0) {
+      return;
+    }
+    setCurrentPage(page);
+  };
+
+  const handleArrowClick = (direction: 'left' | 'right') => {
+    const newPage = calculatePagination(direction, currentPage, totalPages);
+    setCurrentPage(newPage);
+  };
   const bookmarkedImages = Object.values(bookmarks).filter(Boolean);
+  const totalPages = Math.ceil(bookmarkedImages.length / IMAGES_PER_PAGE);
+  const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
+  const endIndex = startIndex + IMAGES_PER_PAGE;
+  const currentBookmarkedImages = bookmarkedImages.slice(startIndex, endIndex);
 
   return (
     <>
@@ -40,8 +60,8 @@ function BookmarkPage() {
 
       <Container>
         <Images $totalImages={bookmarkedImages.length}>
-          {bookmarkedImages.length > 0 &&
-            bookmarkedImages.map((image) => {
+          {currentBookmarkedImages.length > 0 &&
+            currentBookmarkedImages.map((image) => {
               if (!image) {
                 return;
               }
@@ -56,6 +76,15 @@ function BookmarkPage() {
               );
             })}
         </Images>
+        <Spacing direction="vertical" size={24} />
+        {bookmarkedImages.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPage={totalPages}
+            onChangePage={handlePageChange}
+            onClickArrow={handleArrowClick}
+          />
+        )}
       </Container>
     </>
   );
