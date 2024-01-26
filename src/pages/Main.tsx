@@ -35,12 +35,12 @@ function MainPage() {
     }
   };
 
-  const handlePageChange = async (page: number | string) => {
+  const handlePageChange = (page: number | string) => {
     if (typeof page === 'string' || page < 0) {
       return;
     }
     setCurrentPage(page);
-    await loadImages(page);
+    void loadImages(page);
   };
 
   const handleSearch = async () => {
@@ -48,11 +48,11 @@ function MainPage() {
     await loadImages(FIRST_PAGE);
   };
 
-  const handleArrowClick = async (direction: 'left' | 'right') => {
+  const handleArrowClick = (direction: 'left' | 'right') => {
     const newPage = calculatePagination(direction, currentPage, totalPages);
 
     setCurrentPage(newPage);
-    await loadImages(newPage);
+    void loadImages(newPage);
   };
 
   return (
