@@ -11,7 +11,7 @@ import Modal from '../components/shared/Modal';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
 import { FIRST_PAGE } from '../constants/pagination';
-import { ImageItem, PhotoResponse } from '../types/image';
+import { PhotoResponse } from '../types/image';
 import { calculatePagination } from '../utils/paginationUtils';
 
 function MainPage() {
@@ -24,8 +24,7 @@ function MainPage() {
   );
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handleClickImage = async (image: ImageItem) => {
-    const id = image.id;
+  const handleClickImage = async (id: string) => {
     try {
       const data = await fetchImageDetails(id);
       setSelectedImage(data ?? null);
@@ -58,7 +57,7 @@ function MainPage() {
 
   return (
     <>
-      {isOpen ? (
+      {isOpen && selectedImage ? (
         <Modal
           closeModal={closeModal}
           isOpen={isOpen}
@@ -70,15 +69,15 @@ function MainPage() {
           onChangeSearchTerms={handleSearchTermsChange}
           onSearch={handleSearch}
         />
-        <Images>
+        <Images $totalImages={images.length}>
           {images.map((image) => {
             return (
               <Image
                 key={image.id}
+                image={image}
                 alt={image.alt_description ?? image.id}
                 url={image.urls.thumb}
-                liked={image.liked_by_user}
-                onClick={() => void handleClickImage(image)}
+                onClick={() => void handleClickImage(image.id)}
               />
             );
           })}

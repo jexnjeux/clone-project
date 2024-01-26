@@ -4,23 +4,32 @@ import SolidHeartIcon from '../../assets/icons/SolidHeartIcon';
 import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
 import Button from '../shared/Button';
 import Spacing from '../shared/Spacing';
+import useToggleBookmark from '../../hooks/useToggleBookmark';
 
 interface ImageDetailsProps {
-  image: PhotoResponse | null;
+  image: PhotoResponse;
 }
 
 function ImageDetails({ image }: ImageDetailsProps) {
+  const { getBookmarkStatus, handleToggleBookmark } = useToggleBookmark();
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleToggleBookmark(image);
+  };
   return (
     image && (
       <Container>
         <Top>
           <Name>{image.user.name}</Name>
           <ButtonGroup>
-            {image.liked_by_user ? (
-              <SolidHeartIcon />
-            ) : (
-              <StyledOutlinedHeartIcon width={30} />
-            )}
+            <div onClick={(e) => handleBookmarkClick(e)}>
+              {getBookmarkStatus(image.id) ? (
+                <SolidHeartIcon />
+              ) : (
+                <StyledOutlinedHeartIcon width={30} />
+              )}
+            </div>
             <Button size="lg">
               <a
                 href={image.links.download}

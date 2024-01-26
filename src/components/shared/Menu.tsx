@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { css, styled } from 'styled-components';
 import menuItems from '../../data/menuItems';
@@ -12,10 +12,17 @@ function Menu() {
   const { pathname } = useLocation();
 
   const [active, setActive] = useState({
-    main: true,
+    main: false,
     menu: 1,
   });
 
+  useEffect(() => {
+    setActive({
+      main: pathname === '/',
+      menu: active.menu, // 현재 메뉴 상태 유지
+    });
+    console.log({ pathname });
+  }, [active.menu, pathname]);
   const handleMenuClick = (id: number, type: 'main' | 'menu') => {
     setActive(() => ({
       main: type === 'main',
