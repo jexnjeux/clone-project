@@ -116,7 +116,7 @@ const ButtonGroup = styled.div`
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  height: 620px;
+  height: 80%;
 `;
 
 const SelectedImage = styled.img`
