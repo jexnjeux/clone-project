@@ -18,11 +18,6 @@ function Modal({ isOpen, content, closeModal }: ModalProps) {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       modalRef.current.style.top = `${scrollY + window.innerHeight / 2}px`;
     }
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
   }, [isOpen]);
 
   if (!isOpen) {
