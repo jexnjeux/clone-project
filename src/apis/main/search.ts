@@ -29,7 +29,7 @@ export const fetchImages = async (
       width: item.width,
       height: item.height,
       user: item.user,
-      likes: item.likes,
+      downloads: 0,
     }));
 
     return {

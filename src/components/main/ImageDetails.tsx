@@ -1,26 +1,35 @@
 import styled from 'styled-components';
 import { PhotoResponse } from '../../types/image';
-import SolidHeartIcon from '../../assets/icons/SolidHeartIcon';
-import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
 import Button from '../shared/Button';
 import Spacing from '../shared/Spacing';
+import useToggleBookmark from '../../hooks/useToggleBookmark';
+import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
+import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 
 interface ImageDetailsProps {
-  image: PhotoResponse | null;
+  image: PhotoResponse;
 }
 
 function ImageDetails({ image }: ImageDetailsProps) {
+  const { getBookmarkStatus, handleToggleBookmark } = useToggleBookmark();
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleToggleBookmark(image);
+  };
   return (
     image && (
       <Container>
         <Top>
           <Name>{image.user.name}</Name>
           <ButtonGroup>
-            {image.liked_by_user ? (
-              <SolidHeartIcon />
-            ) : (
-              <StyledOutlinedHeartIcon width={30} />
-            )}
+            <IconContainer onClick={(e) => handleBookmarkClick(e)}>
+              {getBookmarkStatus(image.id) ? (
+                <StyledHeartFillIcon colorname="red" />
+              ) : (
+                <StyledHeartLineIcon />
+              )}
+            </IconContainer>
             <Button size="lg">
               <a
                 href={image.links.download}
@@ -135,4 +144,10 @@ const Value = styled.div`
 const TagInfo = styled.div`
   display: flex;
   gap: 16px;
+`;
+
+const IconContainer = styled.button`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 `;
