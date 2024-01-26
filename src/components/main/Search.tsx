@@ -22,7 +22,10 @@ function Search({ onChangeSearchTerms, onSearch }: SearchProps) {
                 </Description>
                 <Spacing direction="vertical" size={16} />
                 <SearchBox>
-                  <StyledInput onChange={onChangeSearchTerms} />
+                  <StyledInput
+                    placeholder="고해상도 이미지 검색"
+                    onChange={onChangeSearchTerms}
+                  />
                   <Button onClick={() => void onSearch()}>
                     <SearchIcon />
                   </Button>
@@ -62,7 +65,7 @@ const ContentBox = styled.div`
   justify-content: center;
   align-items: center;
   height: 300px;
-  padding: 0 20rem;
+  padding: 0 34rem;
 `;
 
 const Section = styled.section`
@@ -83,7 +86,8 @@ const Description = styled.p`
 
 const StyledInput = styled.input`
   width: 100%;
-  height: 40px;
+  height: 50px;
+  color: ${({ theme }) => theme.palette.black};
 `;
 
 const SearchBox = styled.div`
