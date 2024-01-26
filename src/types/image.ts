@@ -281,3 +281,7 @@ export interface PhotoResponse {
   user: User;
   downloads: number;
 }
+
+export interface RandomResponse {
+  results: ImageItem[];
+}
