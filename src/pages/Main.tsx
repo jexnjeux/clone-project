@@ -100,4 +100,5 @@ export default MainPage;
 
 const Container = styled.div`
   padding-bottom: 4rem;
+  overflow-y: scroll;
 `;
