@@ -3,6 +3,8 @@ import { PhotoResponse } from '../../types/image';
 import Button from '../shared/Button';
 import Spacing from '../shared/Spacing';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
+import { formatCreatedAt } from '../../utils/dateUtils';
+import { formatNumberWithCommas } from '../../utils/numberUtils';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 
@@ -59,11 +61,11 @@ function ImageDetails({ image }: ImageDetailsProps) {
             </ImageInfoBox>
             <ImageInfoBox>
               <Label>업로드</Label>
-              <Value>{image.created_at}</Value>
+              <Value>{formatCreatedAt(image.created_at)}</Value>
             </ImageInfoBox>
             <ImageInfoBox>
               <Label>다운로드</Label>
-              <Value>{image.downloads}</Value>
+              <Value>{formatNumberWithCommas(image.downloads)}</Value>
             </ImageInfoBox>
           </ImageInfo>
           <Spacing size={24} direction="vertical" />
