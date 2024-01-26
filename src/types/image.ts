@@ -143,7 +143,7 @@ export interface ImageItem {
   width: number;
   height: number;
   user: User;
-  likes: number;
+  downloads: number;
 }
 
 export interface SearchAxiosResponse {
@@ -270,14 +270,14 @@ interface Topic {
 
 export interface PhotoResponse {
   id: string;
-  alt_description: string;
+  alt_description: string | null;
   created_at: string;
-  downloads: number;
-  height: number;
-  width: number;
   liked_by_user: boolean;
-  links: Links;
   urls: Urls;
+  links: Links;
   tags: string[];
+  width: number;
+  height: number;
   user: User;
+  downloads: number;
 }

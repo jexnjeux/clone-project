@@ -10,7 +10,7 @@ import {
 const usePagination = (totalPage: number, currentPage: number) => {
   const pages: (number | string)[] = [];
 
-  if (totalPage > FIRST_PAGE) {
+  if (totalPage >= FIRST_PAGE) {
     pages.push(FIRST_PAGE);
   }
 

@@ -16,7 +16,6 @@ function Modal({ isOpen, content, closeModal }: ModalProps) {
   useEffect(() => {
     if (isOpen && modalRef.current) {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      console.log({ scrollY });
       modalRef.current.style.top = `${scrollY + window.innerHeight / 2}px`;
     }
   }, [isOpen]);

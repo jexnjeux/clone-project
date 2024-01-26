@@ -1,23 +1,32 @@
 import styled from 'styled-components';
-import StyledOutlinedHeartIcon from '../../assets/icons/StyledOutlinedHeartIcon';
-import StyeldSolidHeartIcon from '../../assets/icons/SolidHeartIcon';
+import { ImageItem } from '../../types/image';
+import useToggleBookmark from '../../hooks/useToggleBookmark';
+import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
+import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 
 interface ImageProps {
+  image: ImageItem;
   url: string;
   alt: string;
-  liked?: boolean;
   onClick: () => void;
 }
 
-function Image({ url, alt, liked, onClick }: ImageProps) {
+function Image({ image, url, alt, onClick }: ImageProps) {
+  const { handleToggleBookmark, getBookmarkStatus } = useToggleBookmark();
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleToggleBookmark(image);
+  };
+
   return (
     <Container onClick={onClick}>
       <Thumbnail src={url} alt={alt} />
-      <IconContainer>
-        {liked ? (
-          <StyeldSolidHeartIcon />
+      <IconContainer onClick={(e) => handleBookmarkClick(e)}>
+        {getBookmarkStatus(image.id) ? (
+          <StyledHeartFillIcon colorname="red" />
         ) : (
-          <StyledOutlinedHeartIcon width="20px" colorname="white" />
+          <StyledHeartLineIcon colorname="white" />
         )}
       </IconContainer>
     </Container>
