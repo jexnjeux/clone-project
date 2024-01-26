@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
+import { PhotoResponse } from '../types/image';
+import { calculatePagination } from '../utils/paginationUtils';
+import { FIRST_PAGE } from '../constants/pagination';
 import { fetchImageDetails } from '../apis/main/photo';
 import useSearch from '../hooks/useSearch';
 import useModal from '../hooks/useModal';
 import Search from '../components/main/Search';
 import Images from '../components/main/Images';
-import Image from '../components/shared/Image';
 import ImageDetails from '../components/main/ImageDetails';
+import Image from '../components/shared/Image';
 import Modal from '../components/shared/Modal';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
-import { FIRST_PAGE } from '../constants/pagination';
-import { PhotoResponse } from '../types/image';
-import { calculatePagination } from '../utils/paginationUtils';
 
 function MainPage() {
   const { handleSearchTermsChange, loadImages, images, totalPages } =
@@ -64,7 +63,7 @@ function MainPage() {
           content={<ImageDetails image={selectedImage} />}
         />
       ) : null}
-      <Container>
+      <div>
         <Search
           onChangeSearchTerms={handleSearchTermsChange}
           onSearch={handleSearch}
@@ -91,14 +90,9 @@ function MainPage() {
             onClickArrow={handleArrowClick}
           />
         )}
-      </Container>
+      </div>
     </>
   );
 }
 
 export default MainPage;
-
-const Container = styled.div`
-  padding-bottom: 4rem;
-  overflow-y: scroll;
-`;
