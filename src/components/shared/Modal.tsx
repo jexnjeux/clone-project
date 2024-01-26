@@ -18,6 +18,11 @@ function Modal({ isOpen, content, closeModal }: ModalProps) {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       modalRef.current.style.top = `${scrollY + window.innerHeight / 2}px`;
     }
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }, [isOpen]);
 
   if (!isOpen) {
@@ -49,13 +54,13 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   width: 85vw;
   height: 90vh;
   padding: ${({ theme }) => theme.spacing.xl2};
   background-color: ${({ theme }) => theme.palette.white};
   border-radius: 8px;
-  overflow: hidden;
+  overflow-y: visible;
   z-index: 15;
 `;
 
@@ -68,7 +73,15 @@ const CloseButton = styled.button`
 
 const ContentWrapper = styled.div`
   flex-grow: 1;
-  padding: 0 2rem;
+  padding-left: 2rem;
   height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
 `;
 export default Modal;
