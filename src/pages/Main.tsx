@@ -82,7 +82,7 @@ function MainPage() {
           })}
         </Images>
         <Spacing direction="vertical" size={24} />
-        {images.length > 0 && (
+        {images.length > 0 && totalPages > 0 && (
           <Pagination
             currentPage={currentPage}
             totalPage={totalPages}
