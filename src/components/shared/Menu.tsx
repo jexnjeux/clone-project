@@ -19,9 +19,10 @@ function Menu() {
   useEffect(() => {
     setActive({
       main: pathname === '/',
-      menu: active.menu, // 현재 메뉴 상태 유지
+      menu: pathname === '/' ? 1 : 2,
     });
-  }, [active.menu, pathname]);
+  }, [pathname]);
+
   const handleMenuClick = (id: number, type: 'main' | 'menu') => {
     setActive(() => ({
       main: type === 'main',
