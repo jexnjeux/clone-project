@@ -44,6 +44,7 @@ function ImageDetails({ image }: ImageDetailsProps) {
             </Button>
           </ButtonGroup>
         </Top>
+        <Spacing direction="vertical" size={24} />
         <ImageBox>
           <SelectedImage
             src={image.urls.regular}
@@ -116,10 +117,11 @@ const ButtonGroup = styled.div`
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  height: 80%;
+  height: 74%;
 `;
 
 const SelectedImage = styled.img`
+  width: 100%;
   height: 100%;
   object-fit: contain;
 `;
