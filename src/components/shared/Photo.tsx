@@ -1,45 +1,48 @@
 import styled from 'styled-components';
-import { ImageItem } from '../../types/image';
+import { PhotoItem } from '../../types/photos';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 
-interface ImageProps {
-  image: ImageItem;
+interface PhotoProps {
+  photo: PhotoItem;
   url: string;
   alt: string;
   onClick: () => void;
+  isSkeleton?: boolean;
 }
 
-function Image({ image, url, alt, onClick }: ImageProps) {
+function Photo({ photo, url, alt, onClick, isSkeleton = false }: PhotoProps) {
   const { handleToggleBookmark, getBookmarkStatus } = useToggleBookmark();
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleToggleBookmark(image);
+    handleToggleBookmark(photo);
   };
 
   return (
-    <Container onClick={onClick}>
+    <Container onClick={onClick} $isSkeleton={isSkeleton}>
       <Thumbnail src={url} alt={alt} />
-      <IconContainer onClick={(e) => handleBookmarkClick(e)}>
-        {getBookmarkStatus(image.id) ? (
-          <StyledHeartFillIcon colorname="red" />
-        ) : (
-          <StyledHeartLineIcon colorname="white" />
-        )}
-      </IconContainer>
+      {!isSkeleton && (
+        <IconContainer onClick={(e) => handleBookmarkClick(e)}>
+          {getBookmarkStatus(photo.id) ? (
+            <StyledHeartFillIcon colorname="red" />
+          ) : (
+            <StyledHeartLineIcon colorname="white" />
+          )}
+        </IconContainer>
+      )}
     </Container>
   );
 }
 
-export default Image;
+export default Photo;
 
-const Container = styled.div`
+const Container = styled.div<{ $isSkeleton: boolean }>`
   width: 200px;
   height: 200px;
   position: relative;
-  cursor: pointer;
+  cursor: ${({ $isSkeleton }) => ($isSkeleton ? 'initial' : 'pointer')};
 `;
 
 const Thumbnail = styled.img`

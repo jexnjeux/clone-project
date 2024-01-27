@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { fetchImages } from '../apis/main/search';
-import { ImageItem } from '../types/image';
+import { PhotoItem } from '../types/photos';
+import { fetchPhotos } from '../apis/main/photo';
 import { fetchRandomPhotos } from '../apis/main/randomPhotos';
 
-const useSearch = () => {
+const usePhotos = () => {
   const isInitialMount = useRef(true);
   const [searchTerms, setSearchTerms] = useState('');
-  const [images, setImages] = useState<ImageItem[]>([]);
+  const [photos, setPhotos] = useState<PhotoItem[]>([]);
   const [totalPages, setTotalPages] = useState(0);
 
   const handleSearchTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,14 +14,14 @@ const useSearch = () => {
     setSearchTerms(value);
   };
 
-  const loadImages = useCallback(
+  const loadPhotos = useCallback(
     async (page: number) => {
       try {
-        const data = await fetchImages(searchTerms, page);
-        setImages(data?.results ?? []);
+        const data = await fetchPhotos(searchTerms, page);
+        setPhotos(data?.results ?? []);
         setTotalPages(data?.total_pages ?? 0);
       } catch (e) {
-        console.error(e);
+        throw new Error('검색한 이미지 결과를 가져오는데 실패했습니다.');
       }
     },
     [searchTerms],
@@ -30,9 +30,9 @@ const useSearch = () => {
   const loadRandomImages = useCallback(async () => {
     try {
       const data = await fetchRandomPhotos();
-      setImages(data?.results ?? []);
+      setPhotos(data?.results ?? []);
     } catch (e) {
-      console.error(e);
+      throw new Error('랜덤 이미지를 저장하는데 실패했습니다.');
     }
   }, []);
 
@@ -46,10 +46,10 @@ const useSearch = () => {
   return {
     searchTerms,
     handleSearchTermsChange,
-    loadImages,
-    images,
+    loadPhotos,
+    photos,
     totalPages,
   };
 };
 
-export default useSearch;
+export default usePhotos;
