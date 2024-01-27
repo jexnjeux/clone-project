@@ -5,6 +5,7 @@ import { FIRST_PAGE } from '../constants/pagination';
 import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import usePhotos from '../hooks/usePhotos';
 import useModal from '../hooks/useModal';
+import { useLoadingStore } from '../stores/loading';
 import Search from '../components/main/Search';
 import Photos from '../components/main/Photos';
 import PhotoDetails from '../components/main/PhotoDetails';
@@ -12,11 +13,13 @@ import Photo from '../components/shared/Photo';
 import Modal from '../components/shared/Modal';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
+import Loading from '../components/shared/Loading';
 
 function MainPage() {
   const { handleSearchTermsChange, loadPhotos, photos, totalPages } =
     usePhotos();
   const { openModal, closeModal, isOpen } = useModal();
+  const isLoading = useLoadingStore((state) => state.requestCount > 0);
 
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,6 +69,7 @@ function MainPage() {
           onChangeSearchTerms={handleSearchTermsChange}
           onSearch={handleSearch}
         />
+        {isLoading ? <Loading /> : null}
         <Photos $totalImages={photos.length}>
           {photos.map((photo) => {
             return (

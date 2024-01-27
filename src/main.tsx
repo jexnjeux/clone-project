@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
 import App from './App.tsx';
 import MainPage from './pages/Main.tsx';
@@ -9,7 +8,6 @@ import BookmarkPage from './pages/Bookmark.tsx';
 import GlobalStyles from './styles/globalstyles';
 import theme from './styles/theme.ts';
 
-const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
@@ -31,9 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>,
 );

@@ -5,6 +5,7 @@ import { calculatePagination } from '../utils/paginationUtils';
 import { PHOTOS_PER_PAGE } from '../constants/pagination';
 import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import { useBookmarkStore } from '../stores/bookmark';
+import { useLoadingStore } from '../stores/loading';
 import useModal from '../hooks/useModal';
 import PhotoDetails from '../components/main/PhotoDetails';
 import Photos from '../components/main/Photos';
@@ -12,9 +13,12 @@ import Modal from '../components/shared/Modal';
 import Photo from '../components/shared/Photo';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
+import Loading from '../components/shared/Loading';
 
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
+  const isLoading = useLoadingStore((state) => state.requestCount > 0);
+
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -58,6 +62,7 @@ function BookmarkPage() {
         />
       ) : null}
 
+      {isLoading ? <Loading /> : null}
       <Container>
         <Photos $totalImages={bookmarkedPhoto.length}>
           {currentBookmarkedPhoto.length > 0 &&

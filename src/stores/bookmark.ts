@@ -33,15 +33,3 @@ export const useBookmarkStore = create(
     },
   ),
 );
-// export const useBookmarkStore = create<BookmarkStore>((set) => ({
-//   bookmarks: {},
-//   toggleBookmark: (image) => {
-//     const { id } = image;
-//     set((state) => ({
-//       bookmarks: {
-//         ...state.bookmarks,
-//         [id]: state.bookmarks[id] ? undefined : image,
-//       },
-//     }));
-//   },
-// }));
