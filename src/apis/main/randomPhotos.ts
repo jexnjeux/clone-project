@@ -28,6 +28,6 @@ export const fetchRandomPhotos = async (): Promise<
     }));
     return { results: photos };
   } catch (e) {
-    console.error(e);
+    throw new Error('랜덤 이미지를 가져오는데 실패했습니다.');
   }
 };

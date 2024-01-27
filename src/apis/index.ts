@@ -24,6 +24,15 @@ instance.interceptors.response.use(
   },
   (error: AxiosError) => {
     useLoadingStore.getState().setLoading(false);
+    if (error.response?.status === 403) {
+      console.error(`[Axios Error]`, error.response);
+      alert(
+        '제한된 요청 횟수를 모두 사용했습니다. 1시간 뒤 다시 시도해 주세요.',
+      );
+    } else {
+      console.error(`[Axios Error]`, error.response);
+      alert('오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    }
     return Promise.reject(error);
   },
 );

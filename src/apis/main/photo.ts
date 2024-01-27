@@ -38,6 +38,6 @@ export const fetchPhotos = async (
       total_pages: data.total_pages,
     };
   } catch (e) {
-    console.error(e);
+    throw new Error('이미지를 가져오는데 실패했습니다.');
   }
 };

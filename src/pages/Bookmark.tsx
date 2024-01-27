@@ -30,8 +30,8 @@ function BookmarkPage() {
       setSelectedPhoto(data ?? null);
       openModal();
     } catch (e) {
-      console.error(e);
       setSelectedPhoto(null);
+      throw new Error('이미지 정보를 가져오는데 실패했습니다.');
     }
   };
 

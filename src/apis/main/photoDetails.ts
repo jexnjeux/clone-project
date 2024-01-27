@@ -26,6 +26,6 @@ export const fetchPhotoDetails = async (
       user: data.user,
     };
   } catch (e) {
-    console.error(e);
+    throw new Error('이미지 정보를 가져오는데 실패했습니다.');
   }
 };

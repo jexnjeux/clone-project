@@ -21,7 +21,7 @@ const usePhotos = () => {
         setPhotos(data?.results ?? []);
         setTotalPages(data?.total_pages ?? 0);
       } catch (e) {
-        console.error(e);
+        throw new Error('검색한 이미지 결과를 가져오는데 실패했습니다.');
       }
     },
     [searchTerms],
@@ -32,7 +32,7 @@ const usePhotos = () => {
       const data = await fetchRandomPhotos();
       setPhotos(data?.results ?? []);
     } catch (e) {
-      console.error(e);
+      throw new Error('랜덤 이미지를 저장하는데 실패했습니다.');
     }
   }, []);
 
