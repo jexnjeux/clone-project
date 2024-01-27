@@ -1,36 +1,49 @@
-import { useState } from 'react';
-import { PhotoResponse } from '../types/image';
+import { useEffect, useState } from 'react';
+import { PhotoItem } from '../types/photos';
 import { calculatePagination } from '../utils/paginationUtils';
-import { FIRST_PAGE } from '../constants/pagination';
-import { fetchImageDetails } from '../apis/main/photo';
-import useSearch from '../hooks/useSearch';
+import { FIRST_PAGE, PHOTOS_PER_PAGE } from '../constants/pagination';
+import { fetchPhotoDetails } from '../apis/main/photoDetails';
+import usePhotos from '../hooks/usePhotos';
 import useModal from '../hooks/useModal';
+import { useLoadingStore } from '../stores/loading';
 import Search from '../components/main/Search';
-import Images from '../components/main/Images';
-import ImageDetails from '../components/main/ImageDetails';
-import Image from '../components/shared/Image';
+import Photos from '../components/main/Photos';
+import PhotoDetails from '../components/main/PhotoDetails';
+import Photo from '../components/shared/Photo';
 import Modal from '../components/shared/Modal';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
+import Loading from '../components/shared/Loading';
+import Skeleton from '/images/emptyBox.png';
+
+const skeletonPhotoItem: Partial<PhotoItem> = {
+  id: '',
+  alt_description: 'skeleton',
+};
 
 function MainPage() {
-  const { handleSearchTermsChange, loadImages, images, totalPages } =
-    useSearch();
+  const { handleSearchTermsChange, loadPhotos, photos, totalPages } =
+    usePhotos();
   const { openModal, closeModal, isOpen } = useModal();
+  const isLoading = useLoadingStore((state) => state.requestCount > 0);
 
-  const [selectedImage, setSelectedImage] = useState<PhotoResponse | null>(
-    null,
-  );
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handleClickImage = async (id: string) => {
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedPhoto(null);
+    }
+  }, [isOpen]);
+
+  const handleClickPhoto = async (id: string) => {
     try {
-      const data = await fetchImageDetails(id);
-      setSelectedImage(data ?? null);
+      const data = await fetchPhotoDetails(id);
+      setSelectedPhoto(data ?? null);
       openModal();
     } catch (e) {
-      console.error(e);
-      setSelectedImage(null);
+      setSelectedPhoto(null);
+      throw new Error('이미지 정보를 저장하는데 실패했습니다.');
     }
   };
 
@@ -39,28 +52,42 @@ function MainPage() {
       return;
     }
     setCurrentPage(page);
-    void loadImages(page);
+    void loadPhotos(page);
   };
 
   const handleSearch = async () => {
     setCurrentPage(FIRST_PAGE);
-    await loadImages(FIRST_PAGE);
+    await loadPhotos(FIRST_PAGE);
   };
 
   const handleArrowClick = (direction: 'left' | 'right') => {
     const newPage = calculatePagination(direction, currentPage, totalPages);
 
     setCurrentPage(newPage);
-    void loadImages(newPage);
+    void loadPhotos(newPage);
+  };
+
+  const renderEmptyPhotos = () => {
+    return Array.from({ length: PHOTOS_PER_PAGE }).map((_, index) => (
+      <Photo
+        key={`empty-${index}`}
+        photo={skeletonPhotoItem as PhotoItem}
+        aria-hidden="true"
+        url={Skeleton}
+        alt="skeleton"
+        onClick={() => {}}
+        isSkeleton
+      />
+    ));
   };
 
   return (
     <>
-      {isOpen && selectedImage ? (
+      {isOpen && selectedPhoto ? (
         <Modal
           closeModal={closeModal}
           isOpen={isOpen}
-          content={<ImageDetails image={selectedImage} />}
+          content={<PhotoDetails photo={selectedPhoto} />}
         />
       ) : null}
       <div>
@@ -68,27 +95,35 @@ function MainPage() {
           onChangeSearchTerms={handleSearchTermsChange}
           onSearch={handleSearch}
         />
-        <Images $totalImages={images.length}>
-          {images.map((image) => {
-            return (
-              <Image
-                key={image.id}
-                image={image}
-                alt={image.alt_description ?? image.id}
-                url={image.urls.thumb}
-                onClick={() => void handleClickImage(image.id)}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <Photos totalImages={photos.length}>
+              {photos.length > 0
+                ? photos.map((photo) => {
+                    return (
+                      <Photo
+                        key={photo.id}
+                        photo={photo}
+                        alt={photo.alt_description ?? photo.id}
+                        url={photo.urls.thumb}
+                        onClick={() => void handleClickPhoto(photo.id)}
+                      />
+                    );
+                  })
+                : renderEmptyPhotos()}
+            </Photos>
+            <Spacing direction="vertical" size={24} />
+            {photos.length > 0 && totalPages > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPage={totalPages}
+                onChangePage={handlePageChange}
+                onClickArrow={handleArrowClick}
               />
-            );
-          })}
-        </Images>
-        <Spacing direction="vertical" size={24} />
-        {images.length > 0 && totalPages > 0 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPage={totalPages}
-            onChangePage={handlePageChange}
-            onClickArrow={handleArrowClick}
-          />
+            )}
+          </>
         )}
       </div>
     </>
