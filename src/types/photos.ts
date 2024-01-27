@@ -1,4 +1,4 @@
-export interface Image {
+export interface Photo {
   alt_description: string | null;
   blur_hash: string;
   breadcrumbs?: {
@@ -93,7 +93,7 @@ interface Tag {
 
 interface TagSource {
   ancestry: TagAncestry;
-  cover_photo: Image;
+  cover_photo: Photo;
   description: string;
   meta_description: string;
   meta_title: string;
@@ -132,7 +132,7 @@ interface TopicSubmissionDetail {
   approved_on?: string; // 선택적 필드
 }
 
-export interface ImageItem {
+export interface PhotoItem {
   id: string;
   alt_description: string | null;
   created_at: string;
@@ -147,13 +147,13 @@ export interface ImageItem {
 }
 
 export interface SearchAxiosResponse {
-  results: Image[];
+  results: Photo[];
   total: number;
   total_pages: number;
 }
 
 export interface SearchResponse {
-  results: ImageItem[];
+  results: PhotoItem[];
   total: number;
   total_pages: number;
 }
@@ -232,7 +232,7 @@ interface Breadcrumbs {
 }
 
 interface RelatedCollectionsResult {
-  cover_photo: Image;
+  cover_photo: Photo;
   description: string | null;
   featured: boolean;
   id: string;
@@ -268,20 +268,6 @@ interface Topic {
   visibility: string;
 }
 
-export interface PhotoResponse {
-  id: string;
-  alt_description: string | null;
-  created_at: string;
-  liked_by_user: boolean;
-  urls: Urls;
-  links: Links;
-  tags: string[];
-  width: number;
-  height: number;
-  user: User;
-  downloads: number;
-}
-
 export interface RandomResponse {
-  results: ImageItem[];
+  results: PhotoItem[];
 }

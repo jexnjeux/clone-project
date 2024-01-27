@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function Images({
+function Photos({
   children,
   $totalImages,
 }: {
@@ -14,7 +14,7 @@ function Images({
   );
 }
 
-export default Images;
+export default Photos;
 
 const Container = styled.div`
   display: flex;

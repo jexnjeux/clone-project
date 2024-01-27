@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { PhotoResponse } from '../../types/image';
 import Button from '../shared/Button';
 import Spacing from '../shared/Spacing';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
@@ -7,26 +6,27 @@ import { formatCreatedAt } from '../../utils/dateUtils';
 import { formatNumberWithCommas } from '../../utils/numberUtils';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
+import { PhotoItem } from '../../types/photos';
 
-interface ImageDetailsProps {
-  image: PhotoResponse;
+interface PhotoDetailsProps {
+  photo: PhotoItem;
 }
 
-function ImageDetails({ image }: ImageDetailsProps) {
+function PhotoDetails({ photo }: PhotoDetailsProps) {
   const { getBookmarkStatus, handleToggleBookmark } = useToggleBookmark();
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleToggleBookmark(image);
+    handleToggleBookmark(photo);
   };
   return (
-    image && (
+    photo && (
       <Container>
         <Top>
-          <Name>{image.user.name}</Name>
+          <Name>{photo.user.name}</Name>
           <ButtonGroup>
             <IconContainer onClick={(e) => handleBookmarkClick(e)}>
-              {getBookmarkStatus(image.id) ? (
+              {getBookmarkStatus(photo.id) ? (
                 <StyledHeartFillIcon colorname="red" />
               ) : (
                 <StyledHeartLineIcon />
@@ -34,7 +34,7 @@ function ImageDetails({ image }: ImageDetailsProps) {
             </IconContainer>
             <Button size="lg">
               <a
-                href={image.links.download}
+                href={photo.links.download}
                 download
                 target="_blank"
                 rel="noreferrer"
@@ -45,33 +45,33 @@ function ImageDetails({ image }: ImageDetailsProps) {
           </ButtonGroup>
         </Top>
         <Spacing direction="vertical" size={24} />
-        <ImageBox>
-          <SelectedImage
-            src={image.urls.regular}
-            alt={image.alt_description ?? image.id}
+        <PhotoBox>
+          <SelectedPhotoBox
+            src={photo.urls.regular}
+            alt={photo.alt_description ?? photo.id}
           />
-        </ImageBox>
+        </PhotoBox>
         <Spacing size={32} direction="vertical" />
         <Bottom>
-          <ImageInfo>
-            <ImageInfoBox>
+          <PhotoInfo>
+            <PhotoInfoBox>
               <Label>이미지 크기</Label>
               <Value>
-                {image.width} X {image.height}
+                {photo.width} X {photo.height}
               </Value>
-            </ImageInfoBox>
-            <ImageInfoBox>
+            </PhotoInfoBox>
+            <PhotoInfoBox>
               <Label>업로드</Label>
-              <Value>{formatCreatedAt(image.created_at)}</Value>
-            </ImageInfoBox>
-            <ImageInfoBox>
+              <Value>{formatCreatedAt(photo.created_at)}</Value>
+            </PhotoInfoBox>
+            <PhotoInfoBox>
               <Label>다운로드</Label>
-              <Value>{formatNumberWithCommas(image.downloads)}</Value>
-            </ImageInfoBox>
-          </ImageInfo>
+              <Value>{formatNumberWithCommas(photo.downloads)}</Value>
+            </PhotoInfoBox>
+          </PhotoInfo>
           <Spacing size={24} direction="vertical" />
           <TagInfo>
-            {image.tags.map((tag) => {
+            {photo.tags.map((tag) => {
               return (
                 <Button $cursorunset key={tag} $solid size="md">
                   {tag}
@@ -85,7 +85,7 @@ function ImageDetails({ image }: ImageDetailsProps) {
   );
 }
 
-export default ImageDetails;
+export default PhotoDetails;
 
 const Container = styled.div`
   display: flex;
@@ -114,13 +114,13 @@ const ButtonGroup = styled.div`
   gap: ${({ theme }) => theme.spacing.md};
 `;
 
-const ImageBox = styled.div`
+const PhotoBox = styled.div`
   display: flex;
   justify-content: center;
   height: 74%;
 `;
 
-const SelectedImage = styled.img`
+const SelectedPhotoBox = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -128,12 +128,12 @@ const SelectedImage = styled.img`
 
 const Bottom = styled.div``;
 
-const ImageInfo = styled.div`
+const PhotoInfo = styled.div`
   display: flex;
   gap: 120px;
 `;
 
-const ImageInfoBox = styled.div``;
+const PhotoInfoBox = styled.div``;
 
 const Label = styled.div`
   padding-bottom: 8px;

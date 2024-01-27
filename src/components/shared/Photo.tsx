@@ -1,29 +1,29 @@
 import styled from 'styled-components';
-import { ImageItem } from '../../types/image';
+import { PhotoItem } from '../../types/photos';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 
-interface ImageProps {
-  image: ImageItem;
+interface PhotoProps {
+  photo: PhotoItem;
   url: string;
   alt: string;
   onClick: () => void;
 }
 
-function Image({ image, url, alt, onClick }: ImageProps) {
+function Photo({ photo, url, alt, onClick }: PhotoProps) {
   const { handleToggleBookmark, getBookmarkStatus } = useToggleBookmark();
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleToggleBookmark(image);
+    handleToggleBookmark(photo);
   };
 
   return (
     <Container onClick={onClick}>
       <Thumbnail src={url} alt={alt} />
       <IconContainer onClick={(e) => handleBookmarkClick(e)}>
-        {getBookmarkStatus(image.id) ? (
+        {getBookmarkStatus(photo.id) ? (
           <StyledHeartFillIcon colorname="red" />
         ) : (
           <StyledHeartLineIcon colorname="white" />
@@ -33,7 +33,7 @@ function Image({ image, url, alt, onClick }: ImageProps) {
   );
 }
 
-export default Image;
+export default Photo;
 
 const Container = styled.div`
   width: 200px;

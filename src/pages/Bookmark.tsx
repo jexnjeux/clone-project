@@ -1,33 +1,33 @@
 import { useState } from 'react';
-import ImageDetails from '../components/main/ImageDetails';
-import Modal from '../components/shared/Modal';
-import useModal from '../hooks/useModal';
-import { ImageItem } from '../types/image';
 import styled from 'styled-components';
-import Images from '../components/main/Images';
-import Image from '../components/shared/Image';
+import { PhotoItem } from '../types/photos';
+import { calculatePagination } from '../utils/paginationUtils';
+import { PHOTOS_PER_PAGE } from '../constants/pagination';
+import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import { useBookmarkStore } from '../stores/bookmark';
-import { fetchImageDetails } from '../apis/main/photo';
+import useModal from '../hooks/useModal';
+import PhotoDetails from '../components/main/PhotoDetails';
+import Photos from '../components/main/Photos';
+import Modal from '../components/shared/Modal';
+import Photo from '../components/shared/Photo';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
-import { IMAGES_PER_PAGE } from '../constants/pagination';
-import { calculatePagination } from '../utils/paginationUtils';
 
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
-  const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
-  const handleClickImage = async (id: string) => {
+  const handleClickPhoto = async (id: string) => {
     try {
-      const data = await fetchImageDetails(id);
-      setSelectedImage(data ?? null);
+      const data = await fetchPhotoDetails(id);
+      setSelectedPhoto(data ?? null);
       openModal();
     } catch (e) {
       console.error(e);
-      setSelectedImage(null);
+      setSelectedPhoto(null);
     }
   };
 
@@ -42,42 +42,42 @@ function BookmarkPage() {
     const newPage = calculatePagination(direction, currentPage, totalPages);
     setCurrentPage(newPage);
   };
-  const bookmarkedImages = Object.values(bookmarks).filter(Boolean);
-  const totalPages = Math.ceil(bookmarkedImages.length / IMAGES_PER_PAGE);
-  const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
-  const endIndex = startIndex + IMAGES_PER_PAGE;
-  const currentBookmarkedImages = bookmarkedImages.slice(startIndex, endIndex);
+  const bookmarkedPhoto = Object.values(bookmarks).filter(Boolean);
+  const totalPages = Math.ceil(bookmarkedPhoto.length / PHOTOS_PER_PAGE);
+  const startIndex = (currentPage - 1) * PHOTOS_PER_PAGE;
+  const endIndex = startIndex + PHOTOS_PER_PAGE;
+  const currentBookmarkedPhoto = bookmarkedPhoto.slice(startIndex, endIndex);
 
   return (
     <>
-      {isOpen && selectedImage ? (
+      {isOpen && selectedPhoto ? (
         <Modal
           closeModal={closeModal}
           isOpen={isOpen}
-          content={<ImageDetails image={selectedImage} />}
+          content={<PhotoDetails photo={selectedPhoto} />}
         />
       ) : null}
 
       <Container>
-        <Images $totalImages={bookmarkedImages.length}>
-          {currentBookmarkedImages.length > 0 &&
-            currentBookmarkedImages.map((image) => {
-              if (!image) {
+        <Photos $totalImages={bookmarkedPhoto.length}>
+          {currentBookmarkedPhoto.length > 0 &&
+            currentBookmarkedPhoto.map((photo) => {
+              if (!photo) {
                 return;
               }
               return (
-                <Image
-                  key={image.id}
-                  image={image}
-                  url={image.urls.thumb}
-                  alt={image.alt_description ?? image.id}
-                  onClick={() => void handleClickImage(image.id)}
+                <Photo
+                  key={photo.id}
+                  photo={photo}
+                  url={photo.urls.thumb}
+                  alt={photo.alt_description ?? photo.id}
+                  onClick={() => void handleClickPhoto(photo.id)}
                 />
               );
             })}
-        </Images>
+        </Photos>
         <Spacing direction="vertical" size={24} />
-        {bookmarkedImages.length > 0 && (
+        {bookmarkedPhoto.length > 0 && (
           <Pagination
             currentPage={currentPage}
             totalPage={totalPages}
