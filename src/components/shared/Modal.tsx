@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import Dimmed from './Dimmed';
 import StyledCloseIcon from '../../assets/icons/CloseIcon';
 import { useEffect, useRef } from 'react';
+import { device, palette, spacing } from '../../styles/theme';
 
 interface ModalProps {
   isOpen?: boolean;
@@ -52,16 +53,22 @@ const Container = styled.div`
   justify-content: space-between;
   width: 85vw;
   height: 90vh;
-  padding: ${({ theme }) => theme.spacing.xl2};
-  background-color: ${({ theme }) => theme.palette.white};
+  padding: ${spacing.xl3};
+  background-color: ${palette.white};
   border-radius: 8px;
   overflow-y: visible;
   z-index: 15;
+
+  @media ${device.tablet} {
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+  }
 `;
 
 const CloseButton = styled.button`
   margin-top: 5px;
-  margin-right: ${({ theme }) => theme.spacing.md};
+  margin-right: ${spacing.md};
   width: 20px;
   height: 20px;
 `;
@@ -78,5 +85,10 @@ const ContentWrapper = styled.div`
   }
 
   -ms-overflow-style: none;
+
+  @media ${device.tablet} {
+    padding-left: 0;
+    width: 100%;
+  }
 `;
 export default Modal;

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { css, styled } from 'styled-components';
 import menuItems from '../../data/menuItems';
+import { device } from '../../styles/theme';
 
 interface ItemProps {
   id: number;
@@ -93,6 +94,10 @@ const Container = styled.div`
 
 const OuterWrapper = styled.div`
   padding: 0 2.5rem;
+
+  @media ${device.mobileL} {
+    padding: 0 1rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -100,10 +105,24 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
+
+  @media ${device.mobileL} {
+    gap: 0px;
+  }
 `;
 
 const MainWrap = styled.div`
   display: flex;
+
+  @media ${device.mobileM} {
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+  }
 `;
 
 const Divider = styled.div`
@@ -125,21 +144,33 @@ const MenuWrap = styled.div`
 
 const Item = styled.div`
   padding: 0 2rem;
+
+  @media ${device.tablet} {
+    padding: 0 0.5rem;
+  }
 `;
 
 const MenuBox = styled.ul`
   display: flex;
   align-items: center;
   column-gap: 24px;
+
+  @media ${device.tablet} {
+    column-gap: 0px;
+  }
 `;
 
 const MenuItemWrap = styled.div<{ $main?: boolean }>`
   padding: 0 2rem;
+
   ${({ $main }) =>
     $main &&
     css`
       padding: 0 1rem;
     `}
+  @media ${device.tablet} {
+    padding: 0 0.5rem;
+  }
 `;
 
 const MenuItem = styled.div<{ $active: boolean }>`

@@ -107,7 +107,7 @@ function MainPage() {
                         key={photo.id}
                         photo={photo}
                         alt={photo.alt_description ?? photo.id}
-                        url={photo.urls.thumb}
+                        url={photo.urls.small}
                         onClick={() => void handleClickPhoto(photo.id)}
                       />
                     );

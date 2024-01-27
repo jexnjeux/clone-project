@@ -3,6 +3,7 @@ import { PhotoItem } from '../../types/photos';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
+import { device } from '../../styles/theme';
 
 interface PhotoProps {
   photo: PhotoItem;
@@ -43,6 +44,21 @@ const Container = styled.div<{ $isSkeleton: boolean }>`
   height: 200px;
   position: relative;
   cursor: ${({ $isSkeleton }) => ($isSkeleton ? 'initial' : 'pointer')};
+
+  @media ${device.tablet} {
+    width: 400px;
+    height: 400px;
+  }
+
+  @media ${device.mobileL} {
+    width: 320px;
+    height: 320px;
+  }
+
+  @media ${device.mobileS} {
+    width: 300px;
+    height: 300px;
+  }
 `;
 
 const Thumbnail = styled.img`
@@ -57,4 +73,9 @@ const IconContainer = styled.div`
   height: 20px;
   bottom: 4px;
   right: 4px;
+
+  @media ${device.tablet} {
+    width: 32px;
+    height: 32px;
+  }
 `;

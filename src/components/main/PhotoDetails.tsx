@@ -7,6 +7,7 @@ import { formatNumberWithCommas } from '../../utils/numberUtils';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 import { PhotoItem } from '../../types/photos';
+import { device, spacing } from '../../styles/theme';
 
 interface PhotoDetailsProps {
   photo: PhotoItem;
@@ -98,6 +99,13 @@ const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: ${spacing.sm};
+  }
 `;
 
 const Name = styled.span`
@@ -106,6 +114,10 @@ const Name = styled.span`
   font-size: ${({ theme }) => theme.font.lg};
   font-weight: bold;
   line-height: 1.75;
+
+  @media ${device.tablet} {
+    line-height: 1;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -117,7 +129,13 @@ const ButtonGroup = styled.div`
 const PhotoBox = styled.div`
   display: flex;
   justify-content: center;
+  margin-left: -4rem;
   height: 74%;
+
+  @media ${device.tablet} {
+    margin: 1rem 0;
+    height: 320px;
+  }
 `;
 
 const SelectedPhotoBox = styled.img`
@@ -131,6 +149,11 @@ const Bottom = styled.div``;
 const PhotoInfo = styled.div`
   display: flex;
   gap: 120px;
+
+  @media ${device.tablet} {
+    flex-direction: column;
+    gap: 12px;
+  }
 `;
 
 const PhotoInfoBox = styled.div``;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device, spacing } from '../../styles/theme';
 
 interface PhotosProps {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ export default Photos;
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: ${({ theme }) => theme.spacing.xl2};
+  padding-top: ${spacing.xl2};
 `;
 
 const Wrapper = styled.div<{ $totalImages: number }>`
@@ -28,5 +29,21 @@ const Wrapper = styled.div<{ $totalImages: number }>`
       ? `repeat(${$totalImages}, 1fr)`
       : 'repeat(4, 1fr)'};
   grid-template-rows: repeat(5, 1fr);
-  gap: ${({ theme }) => theme.spacing.xl};
+  gap: 1.25rem;
+
+  @media ${device.laptop} {
+    grid-template-columns: ${({ $totalImages }) =>
+      0 < $totalImages && $totalImages < 3
+        ? `repeat(${$totalImages}, 1fr)`
+        : 'repeat(3, 1fr)'};
+    gap: 2rem;
+  }
+
+  @media ${device.tablet} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media ${device.mobileL} {
+    gap: 1rem;
+  }
 `;
