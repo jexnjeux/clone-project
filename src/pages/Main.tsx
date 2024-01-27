@@ -99,7 +99,7 @@ function MainPage() {
           <Loading />
         ) : (
           <>
-            <Photos $totalImages={photos.length}>
+            <Photos totalImages={photos.length}>
               {photos.length > 0
                 ? photos.map((photo) => {
                     return (

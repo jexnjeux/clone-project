@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
-function Photos({
-  children,
-  $totalImages,
-}: {
+interface PhotosProps {
   children: React.ReactNode;
-  $totalImages: number;
-}) {
+  totalImages: number;
+}
+
+function Photos({ children, totalImages }: PhotosProps) {
   return (
     <Container>
-      <Wrapper $totalImages={$totalImages}>{children}</Wrapper>
+      <Wrapper $totalImages={totalImages}>{children}</Wrapper>
     </Container>
   );
 }

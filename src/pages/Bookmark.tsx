@@ -64,12 +64,12 @@ function BookmarkPage() {
 
       {isLoading ? <Loading /> : null}
       <Container>
-        <Photos $totalImages={bookmarkedPhoto.length}>
+        {!currentBookmarkedPhoto.length && (
+          <EmptyBookMarkWrap>북마크된 이미지가 없습니다.</EmptyBookMarkWrap>
+        )}
+        <Photos totalImages={bookmarkedPhoto.length}>
           {currentBookmarkedPhoto.length > 0 &&
             currentBookmarkedPhoto.map((photo) => {
-              if (!photo) {
-                return;
-              }
               return (
                 <Photo
                   key={photo.id}
@@ -99,4 +99,10 @@ export default BookmarkPage;
 
 const Container = styled.div`
   padding-bottom: 24px;
+`;
+
+const EmptyBookMarkWrap = styled.p`
+  margin-top: 10rem;
+  text-align: center;
+  font-weight: bold;
 `;
