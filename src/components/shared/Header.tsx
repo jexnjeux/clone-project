@@ -10,7 +10,7 @@ function Header() {
       <HeaderWrapper>
         <Nav>
           <Link to="/">
-            <img src="/public/images/logo.png" alt="logo" width={120} />
+            <img src="/images/logo.png" alt="logo" width={120} />
           </Link>
           <RightSection>
             <Button $solid size="lg">

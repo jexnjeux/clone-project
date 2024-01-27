@@ -35,7 +35,7 @@ function Search({ onChangeSearchTerms, onSearch }: SearchProps) {
           </div>
         </ContentWrap>
       </ContentContainer>
-      <StyledImg src="/public/images/mainImage.jpg" alt="image" />
+      <StyledImg src="/images/mainImage.jpg" alt="image" />
     </Top>
   );
 }

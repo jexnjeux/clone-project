@@ -1,6 +1,6 @@
 import instance from '..';
-import { IMAGES_PER_PAGE } from '../../constants/pagination';
-import { Image, RandomResponse } from '../../types/image';
+import { PHOTOS_PER_PAGE } from '../../constants/pagination';
+import { Photo, RandomResponse } from '../../types/photos';
 
 export const fetchRandomPhotos = async (): Promise<
   RandomResponse | undefined
@@ -8,12 +8,12 @@ export const fetchRandomPhotos = async (): Promise<
   try {
     const params = {
       client_id: import.meta.env.VITE_ACCESS_KEY,
-      count: IMAGES_PER_PAGE,
+      count: PHOTOS_PER_PAGE,
     };
-    const { data }: { data: Image[] } = await instance.get('/photos/random', {
+    const { data }: { data: Photo[] } = await instance.get('/photos/random', {
       params,
     });
-    const images = data.map((item: Image) => ({
+    const photos = data.map((item: Photo) => ({
       id: item.id,
       alt_description: item.alt_description,
       created_at: item.created_at,
@@ -26,8 +26,8 @@ export const fetchRandomPhotos = async (): Promise<
       user: item.user,
       downloads: 0,
     }));
-    return { results: images };
+    return { results: photos };
   } catch (e) {
-    console.error(e);
+    throw new Error('랜덤 이미지를 가져오는데 실패했습니다.');
   }
 };

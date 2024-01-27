@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import { ImageItem } from '../types/image';
+import { PhotoItem } from '../types/photos';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface BookmarkStore {
-  bookmarks: { [id: string]: ImageItem | undefined };
-  toggleBookmark: (image: ImageItem) => void;
+  bookmarks: { [id: string]: PhotoItem };
+  toggleBookmark: (image: PhotoItem) => void;
 }
 
 export const useBookmarkStore = create(
@@ -13,12 +13,18 @@ export const useBookmarkStore = create(
       bookmarks: {},
       toggleBookmark: (image) => {
         const { id } = image;
-        set((state) => ({
-          bookmarks: {
-            ...state.bookmarks,
-            [id]: state.bookmarks[id] ? undefined : image,
-          },
-        }));
+        set((state) => {
+          const newBookmarks = { ...state.bookmarks };
+          if (newBookmarks[image.id]) {
+            delete newBookmarks[image.id];
+          } else {
+            newBookmarks[id] = image;
+          }
+          return {
+            ...state,
+            bookmarks: newBookmarks,
+          };
+        });
       },
     }),
     {
@@ -27,15 +33,3 @@ export const useBookmarkStore = create(
     },
   ),
 );
-// export const useBookmarkStore = create<BookmarkStore>((set) => ({
-//   bookmarks: {},
-//   toggleBookmark: (image) => {
-//     const { id } = image;
-//     set((state) => ({
-//       bookmarks: {
-//         ...state.bookmarks,
-//         [id]: state.bookmarks[id] ? undefined : image,
-//       },
-//     }));
-//   },
-// }));

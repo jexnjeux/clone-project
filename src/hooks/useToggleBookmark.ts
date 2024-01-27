@@ -1,16 +1,16 @@
 import { useBookmarkStore } from '../stores/bookmark';
-import { ImageItem } from '../types/image';
+import { PhotoItem } from '../types/photos';
 
 const useToggleBookmark = () => {
   const toggleBookmark = useBookmarkStore((state) => state.toggleBookmark);
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
-  const handleToggleBookmark = (image: ImageItem) => {
+  const handleToggleBookmark = (image: PhotoItem) => {
     toggleBookmark(image);
   };
 
   const getBookmarkStatus = (id: string) => {
-    return bookmarks[id] ?? false;
+    return !!bookmarks[id] ?? false;
   };
 
   return { handleToggleBookmark, getBookmarkStatus };
