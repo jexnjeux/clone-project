@@ -14,7 +14,7 @@ import Modal from '../components/shared/Modal';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
-import Skeleton from '/images/emptyBox.png';
+import Skeleton from '../assets/images/emptyBox.png';
 
 const skeletonPhotoItem: Partial<PhotoItem> = {
   id: '',
