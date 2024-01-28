@@ -9,8 +9,8 @@ import useModal from '../hooks/useModal';
 import usePageChage from '../hooks/usePageChange';
 import PhotoDetails from '../components/shared/PhotoDetails';
 import Modal from '../components/shared/Modal';
-import Loading from '../components/shared/Loading';
 import RenderContent from '../components/bookmark/RenderContent';
+import RenderPhotoSkeleton from '../components/main/RenderPhotoSkeleton';
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
   const { currentPage, changePage } = usePageChage();
@@ -60,7 +60,7 @@ function BookmarkPage() {
       ) : null}
 
       {isLoading ? (
-        <Loading />
+        <RenderPhotoSkeleton />
       ) : (
         <RenderContent
           currentBookmarkedPhoto={currentBookmarkedPhoto}
