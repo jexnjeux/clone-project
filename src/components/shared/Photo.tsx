@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PhotoItem } from '../../types/photos';
-import BookmarkToggle from '../BookmarkToggle';
+import BookmarkToggle from './BookmarkToggle';
 import { device } from '../../styles/theme';
 
 interface PhotoProps {

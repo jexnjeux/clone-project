@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { PhotoItem } from '../types/photos';
-import useBookmarkToggle from '../hooks/useBookmarkToggle';
-import StyledHeartLineIcon from '../assets/icons/StyledHeartLineIcon';
-import StyledHeartFillIcon from '../assets/icons/StyledHeartFillIcon';
-import { device } from '../styles/theme';
+import { PhotoItem } from '../../types/photos';
+import useBookmarkToggle from '../../hooks/useBookmarkToggle';
+import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
+import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
+import { device } from '../../styles/theme';
 
 interface PhotoProps {
   photo: PhotoItem;

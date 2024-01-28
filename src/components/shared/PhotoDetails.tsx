@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from '../shared/Button';
+import Button from './Button';
 import useBookmarkToggle from '../../hooks/useBookmarkToggle';
 import { formatCreatedAt } from '../../utils/dateUtils';
 import { formatNumberWithCommas } from '../../utils/numberUtils';
@@ -22,16 +22,16 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
   return (
     photo && (
       <Container>
-        <Top>
-          <Name>{photo.user.name}</Name>
-          <ButtonGroup>
-            <IconContainer onClick={(e) => handleBookmarkClick(e)}>
+        <TopSection>
+          <PhotographerName>{photo.user.name}</PhotographerName>
+          <ActionButtonGroup>
+            <BookmarkButton onClick={(e) => handleBookmarkClick(e)}>
               {getBookmarkStatus(photo.id) ? (
                 <StyledHeartFillIcon color="red" />
               ) : (
                 <StyledHeartLineIcon />
               )}
-            </IconContainer>
+            </BookmarkButton>
             <Button size="lg">
               <a
                 href={photo.links.download}
@@ -42,29 +42,29 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
                 다운로드
               </a>
             </Button>
-          </ButtonGroup>
-        </Top>
+          </ActionButtonGroup>
+        </TopSection>
         <PhotoBox>
           <SelectedPhotoBox
             src={photo.urls.regular}
             alt={photo.alt_description ?? photo.id}
           />
         </PhotoBox>
-        <Bottom>
+        <InfoSection>
           <PhotoInfo>
             <PhotoInfoBox>
-              <Label>이미지 크기</Label>
-              <Value>
+              <InfoLabel>이미지 크기</InfoLabel>
+              <InfoValue>
                 {photo.width} X {photo.height}
-              </Value>
+              </InfoValue>
             </PhotoInfoBox>
             <PhotoInfoBox>
-              <Label>업로드</Label>
-              <Value>{formatCreatedAt(photo.created_at)}</Value>
+              <InfoLabel>업로드</InfoLabel>
+              <InfoValue>{formatCreatedAt(photo.created_at)}</InfoValue>
             </PhotoInfoBox>
             <PhotoInfoBox>
-              <Label>다운로드</Label>
-              <Value>{formatNumberWithCommas(photo.downloads)}</Value>
+              <InfoLabel>다운로드</InfoLabel>
+              <InfoValue>{formatNumberWithCommas(photo.downloads)}</InfoValue>
             </PhotoInfoBox>
           </PhotoInfo>
           <TagInfo>
@@ -76,7 +76,7 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
               );
             })}
           </TagInfo>
-        </Bottom>
+        </InfoSection>
       </Container>
     )
   );
@@ -96,7 +96,7 @@ const Container = styled.div`
   }
 `;
 
-const Top = styled.div`
+const TopSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -107,7 +107,7 @@ const Top = styled.div`
   }
 `;
 
-const Name = styled.span`
+const PhotographerName = styled.span`
   display: inline-block;
   color: ${({ theme }) => theme.palette.black};
   font-size: ${({ theme }) => theme.font.lg};
@@ -119,7 +119,7 @@ const Name = styled.span`
   }
 `;
 
-const ButtonGroup = styled.div`
+const ActionButtonGroup = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
@@ -140,7 +140,7 @@ const SelectedPhotoBox = styled.img`
   object-fit: contain;
 `;
 
-const Bottom = styled.div`
+const InfoSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -162,12 +162,12 @@ const PhotoInfo = styled.div`
 
 const PhotoInfoBox = styled.div``;
 
-const Label = styled.div`
+const InfoLabel = styled.div`
   padding-bottom: 8px;
   font-weight: bold;
 `;
 
-const Value = styled.div`
+const InfoValue = styled.div`
   color: ${({ theme }) => theme.palette.black};
   font-weight: bold;
 `;
@@ -177,7 +177,7 @@ const TagInfo = styled.div`
   gap: ${spacing.md};
 `;
 
-const IconContainer = styled.button`
+const BookmarkButton = styled.button`
   width: 20px;
   height: 20px;
   cursor: pointer;
