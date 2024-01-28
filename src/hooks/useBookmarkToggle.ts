@@ -1,11 +1,11 @@
 import { useBookmarkStore } from '../stores/bookmark';
 import { PhotoItem } from '../types/photos';
 
-const useToggleBookmark = () => {
+const useBookmarkToggle = () => {
   const toggleBookmark = useBookmarkStore((state) => state.toggleBookmark);
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
-  const handleToggleBookmark = (image: PhotoItem) => {
+  const handleBookmarkToggle = (image: PhotoItem) => {
     toggleBookmark(image);
   };
 
@@ -13,7 +13,7 @@ const useToggleBookmark = () => {
     return !!bookmarks[id] || false;
   };
 
-  return { handleToggleBookmark, getBookmarkStatus };
+  return { handleBookmarkToggle, getBookmarkStatus };
 };
 
-export default useToggleBookmark;
+export default useBookmarkToggle;

@@ -15,7 +15,7 @@ const HeartLineIcon = ({ ...props }: IconProps) => {
 };
 
 const StyledHeartLineIcon = styled(HeartLineIcon)`
-  fill: ${({ theme, colorname }) =>
-    colorname ? theme.palette[colorname] : theme.palette.gray600};
+  fill: ${({ theme, color }) =>
+    color ? theme.palette[color] : theme.palette.gray600};
 `;
 export default StyledHeartLineIcon;

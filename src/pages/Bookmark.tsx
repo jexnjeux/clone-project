@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { PhotoItem } from '../types/photos';
 import { calculatePagination } from '../utils/paginationUtils';
 import { PHOTOS_PER_PAGE } from '../constants/pagination';
@@ -7,24 +6,21 @@ import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import { useBookmarkStore } from '../stores/bookmark';
 import { useLoadingStore } from '../stores/loading';
 import useModal from '../hooks/useModal';
-import PhotoDetails from '../components/main/PhotoDetails';
-import Photos from '../components/main/Photos';
+import usePageChage from '../hooks/usePageChange';
+import PhotoDetails from '../components/shared/PhotoDetails';
 import Modal from '../components/shared/Modal';
-import Photo from '../components/shared/Photo';
-import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
-import { spacing } from '../styles/theme';
-
+import RenderContent from '../components/bookmark/RenderContent';
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
+  const { currentPage, changePage } = usePageChage();
   const isLoading = useLoadingStore((state) => state.requestCount > 0);
 
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
-  const handleClickPhoto = async (id: string) => {
+  const handlePhotoClick = async (id: string) => {
     try {
       const data = await fetchPhotoDetails(id);
       setSelectedPhoto(data ?? null);
@@ -39,13 +35,13 @@ function BookmarkPage() {
     if (typeof page === 'string' || page < 0) {
       return;
     }
-    setCurrentPage(page);
+    changePage(page);
     scrollTo(0, 0);
   };
 
   const handleArrowClick = (direction: 'left' | 'right') => {
     const newPage = calculatePagination(direction, currentPage, totalPages);
-    setCurrentPage(newPage);
+    changePage(newPage);
   };
   const bookmarkedPhoto = Object.values(bookmarks).filter(Boolean);
   const totalPages = Math.ceil(bookmarkedPhoto.length / PHOTOS_PER_PAGE);
@@ -63,49 +59,21 @@ function BookmarkPage() {
         />
       ) : null}
 
-      {isLoading ? <Loading /> : null}
-      <Container>
-        {!currentBookmarkedPhoto.length && (
-          <EmptyBookMarkWrap>북마크된 이미지가 없습니다.</EmptyBookMarkWrap>
-        )}
-        <Photos totalImages={bookmarkedPhoto.length}>
-          {currentBookmarkedPhoto.length > 0 &&
-            currentBookmarkedPhoto.map((photo) => {
-              return (
-                <Photo
-                  key={photo.id}
-                  photo={photo}
-                  url={photo.urls.small}
-                  alt={photo.alt_description ?? photo.id}
-                  onClick={() => void handleClickPhoto(photo.id)}
-                />
-              );
-            })}
-        </Photos>
-        {bookmarkedPhoto.length > 0 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPage={totalPages}
-            onChangePage={handlePageChange}
-            onClickArrow={handleArrowClick}
-          />
-        )}
-      </Container>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <RenderContent
+          currentBookmarkedPhoto={currentBookmarkedPhoto}
+          bookmarkedPhoto={bookmarkedPhoto}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onChangePage={handlePageChange}
+          onClickArrow={handleArrowClick}
+          onClickPhoto={handlePhotoClick}
+        />
+      )}
     </>
   );
 }
 
 export default BookmarkPage;
-
-const Container = styled.div`
-  padding-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.xl2};
-`;
-
-const EmptyBookMarkWrap = styled.p`
-  margin-top: 10rem;
-  text-align: center;
-  font-weight: bold;
-`;
