@@ -7,6 +7,7 @@ import MainPage from './pages/Main.tsx';
 import BookmarkPage from './pages/Bookmark.tsx';
 import GlobalStyles from './styles/globalstyles';
 import theme from './styles/theme.ts';
+import './index.css';
 
 const router = createBrowserRouter([
   {
