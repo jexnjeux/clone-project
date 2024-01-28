@@ -10,8 +10,8 @@ import { useLoadingStore } from '../stores/loading';
 import RenderSearch from '../components/main/RenderSearch';
 import PhotoDetails from '../components/shared/PhotoDetails';
 import Modal from '../components/shared/Modal';
-import Loading from '../components/shared/Loading';
 import RenderContent from '../components/main/RenderContent';
+import RenderPhotoSkeleton from '../components/main/RenderPhotoSkeleton';
 
 function MainPage() {
   const isInitialMount = useRef(true);
@@ -89,7 +89,7 @@ function MainPage() {
         onSearch={handleSearch}
       />
       {isLoading ? (
-        <Loading />
+        <RenderPhotoSkeleton />
       ) : (
         <>
           <RenderContent
