@@ -1,7 +1,8 @@
 import { styled } from 'styled-components';
 import Spacing from '../shared/Spacing';
-import SearchIcon from '../../assets/icons/SearchIcon';
 import { device } from '../../styles/theme';
+import SearchIcon from '../../assets/icons/SearchIcon';
+import MainImage from '../../assets/images/mainImage.jpg';
 
 interface SearchProps {
   onChangeSearchTerms: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -36,7 +37,7 @@ function Search({ onChangeSearchTerms, onSearch }: SearchProps) {
           </div>
         </ContentWrap>
       </ContentContainer>
-      <StyledImg src="/images/mainImage.jpg" alt="image" />
+      <StyledImg src={MainImage} alt="image" />
     </Top>
   );
 }
