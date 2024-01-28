@@ -25,7 +25,7 @@ function BookmarkPage() {
 
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
-  const handleClickPhoto = async (id: string) => {
+  const handlePhotoClick = async (id: string) => {
     try {
       const data = await fetchPhotoDetails(id);
       setSelectedPhoto(data ?? null);
@@ -78,7 +78,7 @@ function BookmarkPage() {
                   photo={photo}
                   url={photo.urls.small}
                   alt={photo.alt_description ?? photo.id}
-                  onClick={() => void handleClickPhoto(photo.id)}
+                  onClick={() => void handlePhotoClick(photo.id)}
                 />
               );
             })}

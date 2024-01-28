@@ -37,7 +37,7 @@ function MainPage() {
     }
   }, [isOpen]);
 
-  const handleClickPhoto = async (id: string) => {
+  const handlePhotoClick = async (id: string) => {
     try {
       const data = await fetchPhotoDetails(id);
       setSelectedPhoto(data ?? null);
@@ -110,7 +110,7 @@ function MainPage() {
                         photo={photo}
                         alt={photo.alt_description ?? photo.id}
                         url={photo.urls.small}
-                        onClick={() => void handleClickPhoto(photo.id)}
+                        onClick={() => void handlePhotoClick(photo.id)}
                       />
                     );
                   })

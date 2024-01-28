@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PhotoItem } from '../types/photos';
-import useToggleBookmark from '../hooks/useToggleBookmark';
+import useBookmarkToggle from '../hooks/useBookmarkToggle';
 import StyledHeartLineIcon from '../assets/icons/StyledHeartLineIcon';
 import StyledHeartFillIcon from '../assets/icons/StyledHeartFillIcon';
 import { device } from '../styles/theme';
@@ -10,11 +10,11 @@ interface PhotoProps {
 }
 
 function BookmarkToggle({ photo }: PhotoProps) {
-  const { handleToggleBookmark, getBookmarkStatus } = useToggleBookmark();
+  const { handleBookmarkToggle, getBookmarkStatus } = useBookmarkToggle();
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleToggleBookmark(photo);
+    handleBookmarkToggle(photo);
   };
 
   return (

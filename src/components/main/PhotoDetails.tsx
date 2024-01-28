@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../shared/Button';
-import useToggleBookmark from '../../hooks/useToggleBookmark';
+import useBookmarkToggle from '../../hooks/useBookmarkToggle';
 import { formatCreatedAt } from '../../utils/dateUtils';
 import { formatNumberWithCommas } from '../../utils/numberUtils';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
@@ -13,11 +13,11 @@ interface PhotoDetailsProps {
 }
 
 function PhotoDetails({ photo }: PhotoDetailsProps) {
-  const { getBookmarkStatus, handleToggleBookmark } = useToggleBookmark();
+  const { getBookmarkStatus, handleBookmarkToggle } = useBookmarkToggle();
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleToggleBookmark(photo);
+    handleBookmarkToggle(photo);
   };
   return (
     photo && (
