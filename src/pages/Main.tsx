@@ -7,16 +7,11 @@ import usePhotos from '../hooks/usePhotos';
 import useModal from '../hooks/useModal';
 import usePageChage from '../hooks/usePageChange';
 import { useLoadingStore } from '../stores/loading';
-import Search from '../components/main/Search';
-import Photos from '../components/shared/Photos';
+import RenderSearch from '../components/main/RenderSearch';
 import PhotoDetails from '../components/shared/PhotoDetails';
-import Photo from '../components/shared/Photo';
 import Modal from '../components/shared/Modal';
-import Spacing from '../components/shared/Spacing';
-import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
-import FallbackImages from '../components/shared/FallbackImages';
-import EmptyPhotoMessage from '../components/shared/EmptyPhotoMessage';
+import RenderContent from '../components/main/RenderContent';
 
 function MainPage() {
   const isInitialMount = useRef(true);
@@ -89,7 +84,7 @@ function MainPage() {
           content={<PhotoDetails photo={selectedPhoto} />}
         />
       ) : null}
-      <Search
+      <RenderSearch
         onChangeSearchTerms={handleSearchTermsChange}
         onSearch={handleSearch}
       />
@@ -97,31 +92,15 @@ function MainPage() {
         <Loading />
       ) : (
         <>
-          {!apiError && photos.length == 0 && <EmptyPhotoMessage page="main" />}
-          <Photos totalImages={photos.length}>
-            {photos.length > 0 &&
-              photos.map((photo) => {
-                return (
-                  <Photo
-                    key={photo.id}
-                    photo={photo}
-                    alt={photo.alt_description ?? photo.id}
-                    url={photo.urls.small}
-                    onClick={() => void handlePhotoClick(photo.id)}
-                  />
-                );
-              })}
-            {apiError && <FallbackImages />}
-          </Photos>
-          <Spacing direction="vertical" size={24} />
-          {photos.length > 0 && totalPages > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPage={totalPages}
-              onChangePage={handlePageChange}
-              onClickArrow={handleArrowClick}
-            />
-          )}
+          <RenderContent
+            apiError={apiError}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            photos={photos}
+            onClickPhoto={handlePhotoClick}
+            onChangePage={handlePageChange}
+            onClickArrow={handleArrowClick}
+          />
         </>
       )}
     </>
