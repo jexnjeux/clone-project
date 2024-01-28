@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { PhotoItem } from '../types/photos';
 import { calculatePagination } from '../utils/paginationUtils';
 import { PHOTOS_PER_PAGE } from '../constants/pagination';
@@ -9,13 +8,9 @@ import { useLoadingStore } from '../stores/loading';
 import useModal from '../hooks/useModal';
 import usePageChage from '../hooks/usePageChange';
 import PhotoDetails from '../components/shared/PhotoDetails';
-import Photos from '../components/shared/Photos';
 import Modal from '../components/shared/Modal';
-import Photo from '../components/shared/Photo';
-import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
-import EmptyPhotoMessage from '../components/shared/EmptyPhotoMessage';
-import { spacing } from '../styles/theme';
+import RenderContent from '../components/bookmark/RenderContent';
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
   const { currentPage, changePage } = usePageChage();
@@ -64,43 +59,21 @@ function BookmarkPage() {
         />
       ) : null}
 
-      {isLoading ? <Loading /> : null}
-      <Container>
-        {!currentBookmarkedPhoto.length && (
-          <EmptyPhotoMessage page="bookmark" />
-        )}
-        <Photos totalImages={bookmarkedPhoto.length}>
-          {currentBookmarkedPhoto.length > 0 &&
-            currentBookmarkedPhoto.map((photo) => {
-              return (
-                <Photo
-                  key={photo.id}
-                  photo={photo}
-                  url={photo.urls.small}
-                  alt={photo.alt_description ?? photo.id}
-                  onClick={() => void handlePhotoClick(photo.id)}
-                />
-              );
-            })}
-        </Photos>
-        {bookmarkedPhoto.length > 0 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPage={totalPages}
-            onChangePage={handlePageChange}
-            onClickArrow={handleArrowClick}
-          />
-        )}
-      </Container>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <RenderContent
+          currentBookmarkedPhoto={currentBookmarkedPhoto}
+          bookmarkedPhoto={bookmarkedPhoto}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onChangePage={handlePageChange}
+          onClickArrow={handleArrowClick}
+          onClickPhoto={handlePhotoClick}
+        />
+      )}
     </>
   );
 }
 
 export default BookmarkPage;
-
-const Container = styled.div`
-  padding-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: ${spacing.xl2};
-`;
