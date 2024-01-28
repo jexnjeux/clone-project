@@ -9,7 +9,7 @@ interface SearchProps {
   onSearch: () => Promise<void>;
 }
 
-function Search({ onChangeSearchTerms, onSearch }: SearchProps) {
+function RenderSearch({ onChangeSearchTerms, onSearch }: SearchProps) {
   return (
     <Top>
       <ContentContainer>
@@ -41,7 +41,7 @@ function Search({ onChangeSearchTerms, onSearch }: SearchProps) {
     </Top>
   );
 }
-export default Search;
+export default RenderSearch;
 
 const Top = styled.div`
   height: 300px;
