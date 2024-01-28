@@ -5,6 +5,7 @@ import { FIRST_PAGE, PHOTOS_PER_PAGE } from '../constants/pagination';
 import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import usePhotos from '../hooks/usePhotos';
 import useModal from '../hooks/useModal';
+import usePageChage from '../hooks/usePageChange';
 import { useLoadingStore } from '../stores/loading';
 import Search from '../components/main/Search';
 import Photos from '../components/main/Photos';
@@ -25,10 +26,10 @@ function MainPage() {
   const { handleSearchTermsChange, loadPhotos, photos, totalPages } =
     usePhotos();
   const { openModal, closeModal, isOpen } = useModal();
+  const { currentPage, changePage } = usePageChage();
   const isLoading = useLoadingStore((state) => state.requestCount > 0);
 
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (!isOpen) {
@@ -51,20 +52,20 @@ function MainPage() {
     if (typeof page === 'string' || page < 0) {
       return;
     }
-    setCurrentPage(page);
+    changePage(page);
     void loadPhotos(page);
     scrollTo(0, 0);
   };
 
   const handleSearch = async () => {
-    setCurrentPage(FIRST_PAGE);
+    changePage(FIRST_PAGE);
     await loadPhotos(FIRST_PAGE);
   };
 
   const handleArrowClick = (direction: 'left' | 'right') => {
     const newPage = calculatePagination(direction, currentPage, totalPages);
 
-    setCurrentPage(newPage);
+    changePage(newPage);
     void loadPhotos(newPage);
   };
 

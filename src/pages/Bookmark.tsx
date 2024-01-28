@@ -7,6 +7,7 @@ import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import { useBookmarkStore } from '../stores/bookmark';
 import { useLoadingStore } from '../stores/loading';
 import useModal from '../hooks/useModal';
+import usePageChage from '../hooks/usePageChange';
 import PhotoDetails from '../components/main/PhotoDetails';
 import Photos from '../components/main/Photos';
 import Modal from '../components/shared/Modal';
@@ -17,10 +18,10 @@ import { spacing } from '../styles/theme';
 
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
+  const { currentPage, changePage } = usePageChage();
   const isLoading = useLoadingStore((state) => state.requestCount > 0);
 
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const bookmarks = useBookmarkStore((state) => state.bookmarks);
 
@@ -39,13 +40,13 @@ function BookmarkPage() {
     if (typeof page === 'string' || page < 0) {
       return;
     }
-    setCurrentPage(page);
+    changePage(page);
     scrollTo(0, 0);
   };
 
   const handleArrowClick = (direction: 'left' | 'right') => {
     const newPage = calculatePagination(direction, currentPage, totalPages);
-    setCurrentPage(newPage);
+    changePage(newPage);
   };
   const bookmarkedPhoto = Object.values(bookmarks).filter(Boolean);
   const totalPages = Math.ceil(bookmarkedPhoto.length / PHOTOS_PER_PAGE);
