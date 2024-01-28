@@ -11,9 +11,9 @@ import PhotoDetails from '../components/main/PhotoDetails';
 import Photos from '../components/main/Photos';
 import Modal from '../components/shared/Modal';
 import Photo from '../components/shared/Photo';
-import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
+import { spacing } from '../styles/theme';
 
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
@@ -40,6 +40,7 @@ function BookmarkPage() {
       return;
     }
     setCurrentPage(page);
+    scrollTo(0, 0);
   };
 
   const handleArrowClick = (direction: 'left' | 'right') => {
@@ -74,14 +75,13 @@ function BookmarkPage() {
                 <Photo
                   key={photo.id}
                   photo={photo}
-                  url={photo.urls.thumb}
+                  url={photo.urls.small}
                   alt={photo.alt_description ?? photo.id}
                   onClick={() => void handleClickPhoto(photo.id)}
                 />
               );
             })}
         </Photos>
-        <Spacing direction="vertical" size={24} />
         {bookmarkedPhoto.length > 0 && (
           <Pagination
             currentPage={currentPage}
@@ -99,6 +99,9 @@ export default BookmarkPage;
 
 const Container = styled.div`
   padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: ${spacing.xl2};
 `;
 
 const EmptyBookMarkWrap = styled.p`
