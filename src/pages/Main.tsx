@@ -16,6 +16,7 @@ import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
 import FallbackImages from '../components/shared/FallbackImages';
+import EmptyPhotoMessage from '../components/shared/EmptyPhotoMessage';
 
 function MainPage() {
   const isInitialMount = useRef(true);
@@ -88,46 +89,41 @@ function MainPage() {
           content={<PhotoDetails photo={selectedPhoto} />}
         />
       ) : null}
-      <div>
-        <Search
-          onChangeSearchTerms={handleSearchTermsChange}
-          onSearch={handleSearch}
-        />
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <Photos totalImages={photos.length}>
-              {photos.length > 0 ? (
-                photos.map((photo) => {
-                  return (
-                    <Photo
-                      key={photo.id}
-                      photo={photo}
-                      alt={photo.alt_description ?? photo.id}
-                      url={photo.urls.small}
-                      onClick={() => void handlePhotoClick(photo.id)}
-                    />
-                  );
-                })
-              ) : apiError ? (
-                <FallbackImages />
-              ) : (
-                <></>
-              )}
-            </Photos>
-            <Spacing direction="vertical" size={24} />
-            {photos.length > 0 && totalPages > 0 && (
-              <Pagination
-                currentPage={currentPage}
-                totalPage={totalPages}
-                onChangePage={handlePageChange}
-                onClickArrow={handleArrowClick}
-              />
-            )}
-          </>
-        )}
-      </div>
+      <Search
+        onChangeSearchTerms={handleSearchTermsChange}
+        onSearch={handleSearch}
+      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {!apiError && photos.length == 0 && <EmptyPhotoMessage page="main" />}
+          <Photos totalImages={photos.length}>
+            {photos.length > 0 &&
+              photos.map((photo) => {
+                return (
+                  <Photo
+                    key={photo.id}
+                    photo={photo}
+                    alt={photo.alt_description ?? photo.id}
+                    url={photo.urls.small}
+                    onClick={() => void handlePhotoClick(photo.id)}
+                  />
+                );
+              })}
+            {apiError && <FallbackImages />}
+          </Photos>
+          <Spacing direction="vertical" size={24} />
+          {photos.length > 0 && totalPages > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPage={totalPages}
+              onChangePage={handlePageChange}
+              onClickArrow={handleArrowClick}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }

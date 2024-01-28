@@ -14,8 +14,8 @@ import Modal from '../components/shared/Modal';
 import Photo from '../components/shared/Photo';
 import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
+import EmptyPhotoMessage from '../components/shared/EmptyPhotoMessage';
 import { spacing } from '../styles/theme';
-
 function BookmarkPage() {
   const { openModal, closeModal, isOpen } = useModal();
   const { currentPage, changePage } = usePageChage();
@@ -67,7 +67,7 @@ function BookmarkPage() {
       {isLoading ? <Loading /> : null}
       <Container>
         {!currentBookmarkedPhoto.length && (
-          <EmptyBookMarkWrap>북마크된 이미지가 없습니다.</EmptyBookMarkWrap>
+          <EmptyPhotoMessage page="bookmark" />
         )}
         <Photos totalImages={bookmarkedPhoto.length}>
           {currentBookmarkedPhoto.length > 0 &&
@@ -103,10 +103,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing.xl2};
-`;
-
-const EmptyBookMarkWrap = styled.p`
-  margin-top: 10rem;
-  text-align: center;
-  font-weight: bold;
 `;
