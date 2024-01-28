@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Button from '../shared/Button';
-import Spacing from '../shared/Spacing';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
 import { formatCreatedAt } from '../../utils/dateUtils';
 import { formatNumberWithCommas } from '../../utils/numberUtils';
 import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 import { PhotoItem } from '../../types/photos';
+import { device, spacing } from '../../styles/theme';
 
 interface PhotoDetailsProps {
   photo: PhotoItem;
@@ -44,14 +44,12 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
             </Button>
           </ButtonGroup>
         </Top>
-        <Spacing direction="vertical" size={24} />
         <PhotoBox>
           <SelectedPhotoBox
             src={photo.urls.regular}
             alt={photo.alt_description ?? photo.id}
           />
         </PhotoBox>
-        <Spacing size={32} direction="vertical" />
         <Bottom>
           <PhotoInfo>
             <PhotoInfoBox>
@@ -69,7 +67,6 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
               <Value>{formatNumberWithCommas(photo.downloads)}</Value>
             </PhotoInfoBox>
           </PhotoInfo>
-          <Spacing size={24} direction="vertical" />
           <TagInfo>
             {photo.tags.map((tag) => {
               return (
@@ -91,13 +88,23 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: ${spacing.xl2};
   height: 100%;
+
+  @media ${device.tablet} {
+    gap: ${spacing.md};
+  }
 `;
 
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${device.tablet} {
+    align-items: flex-end;
+    gap: ${spacing.sm};
+  }
 `;
 
 const Name = styled.span`
@@ -106,6 +113,10 @@ const Name = styled.span`
   font-size: ${({ theme }) => theme.font.lg};
   font-weight: bold;
   line-height: 1.75;
+
+  @media ${device.tablet} {
+    line-height: 1;
+  }
 `;
 
 const ButtonGroup = styled.div`
@@ -117,20 +128,36 @@ const ButtonGroup = styled.div`
 const PhotoBox = styled.div`
   display: flex;
   justify-content: center;
-  height: 74%;
+
+  @media ${device.tablet} {
+    height: 320px;
+  }
 `;
 
 const SelectedPhotoBox = styled.img`
   width: 100%;
-  height: 100%;
+  max-height: 500px;
   object-fit: contain;
 `;
 
-const Bottom = styled.div``;
+const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: ${spacing.xl};
+
+  @media ${device.tablet} {
+    gap: ${spacing.sm};
+  }
+`;
 
 const PhotoInfo = styled.div`
   display: flex;
-  gap: 120px;
+  gap: ${spacing.xl3};
+
+  @media ${device.tablet} {
+    gap: ${spacing.xl2};
+  }
 `;
 
 const PhotoInfoBox = styled.div``;
@@ -147,7 +174,7 @@ const Value = styled.div`
 
 const TagInfo = styled.div`
   display: flex;
-  gap: 16px;
+  gap: ${spacing.md};
 `;
 
 const IconContainer = styled.button`

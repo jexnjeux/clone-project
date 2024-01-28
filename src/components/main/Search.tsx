@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import Spacing from '../shared/Spacing';
 import SearchIcon from '../../assets/icons/SearchIcon';
+import { device } from '../../styles/theme';
 
 interface SearchProps {
   onChangeSearchTerms: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -66,6 +67,22 @@ const ContentBox = styled.div`
   align-items: center;
   height: 300px;
   padding: 0 34rem;
+
+  @media ${device.laptopL} {
+    padding: 0 22rem;
+  }
+
+  @media ${device.laptop} {
+    padding: 0 6rem;
+  }
+
+  @media ${device.tablet} {
+    padding: 0 4rem;
+  }
+
+  @media ${device.mobileL} {
+    padding: 0 2rem;
+  }
 `;
 
 const Section = styled.section`

@@ -11,6 +11,9 @@ const usePhotos = () => {
 
   const handleSearchTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    if (!value) {
+      return;
+    }
     setSearchTerms(value);
   };
 
