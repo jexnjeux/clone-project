@@ -4,7 +4,7 @@ import Button from './Button';
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon';
 import ArrowLeftIcon from '../../assets/icons/ArrowLeftIcon';
 import { ELLIPSIS } from '../../constants/pagination';
-import { device } from '../../styles/theme';
+import { device, spacing } from '../../styles/theme';
 
 interface PaginationProps {
   totalPage: number;
@@ -62,10 +62,10 @@ const Container = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: ${spacing.xl};
 
   @media ${device.mobileL} {
-    gap: 4px;
+    gap: ${spacing.xs};
   }
 `;
 

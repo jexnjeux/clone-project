@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { css, styled } from 'styled-components';
 import menuItems from '../../data/menuItems';
-import { device } from '../../styles/theme';
+import { device, spacing } from '../../styles/theme';
 
 interface ItemProps {
   id: number;
@@ -104,7 +104,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: ${spacing.md};
 
   @media ${device.mobileL} {
     gap: 0px;
@@ -153,7 +153,7 @@ const Item = styled.div`
 const MenuBox = styled.ul`
   display: flex;
   align-items: center;
-  column-gap: 24px;
+  column-gap: ${spacing.xl};
 
   @media ${device.tablet} {
     column-gap: 0px;

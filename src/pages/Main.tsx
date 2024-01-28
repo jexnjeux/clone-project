@@ -53,6 +53,7 @@ function MainPage() {
     }
     setCurrentPage(page);
     void loadPhotos(page);
+    scrollTo(0, 0);
   };
 
   const handleSearch = async () => {

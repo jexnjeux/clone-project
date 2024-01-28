@@ -71,11 +71,13 @@ const IconContainer = styled.div`
   position: absolute;
   width: 20px;
   height: 20px;
-  bottom: 4px;
   right: 4px;
+  bottom: 4px;
 
   @media ${device.tablet} {
     width: 32px;
     height: 32px;
+    right: 8px;
+    bottom: 8px;
   }
 `;

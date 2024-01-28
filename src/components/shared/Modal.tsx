@@ -49,11 +49,11 @@ const Container = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: ${spacing.md};
   width: 85vw;
   height: 90vh;
-  padding: ${spacing.xl3};
+  padding: 3rem;
   background-color: ${palette.white};
   border-radius: 8px;
   overflow-y: visible;
@@ -63,19 +63,16 @@ const Container = styled.div`
     flex-direction: column;
     padding: 1rem;
     width: 100%;
+    height: 600px;
   }
 `;
 
 const CloseButton = styled.button`
-  margin-top: 5px;
-  margin-right: ${spacing.md};
   width: 20px;
   height: 20px;
 `;
 
 const ContentWrapper = styled.div`
-  flex-grow: 1;
-  padding-left: 2rem;
   height: 100%;
   overflow-y: auto;
   scrollbar-width: none;
@@ -87,7 +84,6 @@ const ContentWrapper = styled.div`
   -ms-overflow-style: none;
 
   @media ${device.tablet} {
-    padding-left: 0;
     width: 100%;
   }
 `;

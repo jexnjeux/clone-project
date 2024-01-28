@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Button from '../shared/Button';
-import Spacing from '../shared/Spacing';
 import useToggleBookmark from '../../hooks/useToggleBookmark';
 import { formatCreatedAt } from '../../utils/dateUtils';
 import { formatNumberWithCommas } from '../../utils/numberUtils';
@@ -45,14 +44,12 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
             </Button>
           </ButtonGroup>
         </Top>
-        <Spacing direction="vertical" size={24} />
         <PhotoBox>
           <SelectedPhotoBox
             src={photo.urls.regular}
             alt={photo.alt_description ?? photo.id}
           />
         </PhotoBox>
-        <Spacing size={32} direction="vertical" />
         <Bottom>
           <PhotoInfo>
             <PhotoInfoBox>
@@ -70,7 +67,6 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
               <Value>{formatNumberWithCommas(photo.downloads)}</Value>
             </PhotoInfoBox>
           </PhotoInfo>
-          <Spacing size={24} direction="vertical" />
           <TagInfo>
             {photo.tags.map((tag) => {
               return (
@@ -92,7 +88,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: ${spacing.xl2};
   height: 100%;
+
+  @media ${device.tablet} {
+    gap: ${spacing.md};
+  }
 `;
 
 const Top = styled.div`
@@ -101,8 +102,6 @@ const Top = styled.div`
   align-items: center;
 
   @media ${device.tablet} {
-    display: flex;
-    flex-direction: column;
     align-items: flex-end;
     gap: ${spacing.sm};
   }
@@ -129,30 +128,35 @@ const ButtonGroup = styled.div`
 const PhotoBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-left: -4rem;
-  height: 74%;
 
   @media ${device.tablet} {
-    margin: 1rem 0;
     height: 320px;
   }
 `;
 
 const SelectedPhotoBox = styled.img`
   width: 100%;
-  height: 100%;
+  max-height: 500px;
   object-fit: contain;
 `;
 
-const Bottom = styled.div``;
+const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: ${spacing.xl};
+
+  @media ${device.tablet} {
+    gap: ${spacing.sm};
+  }
+`;
 
 const PhotoInfo = styled.div`
   display: flex;
-  gap: 120px;
+  gap: ${spacing.xl3};
 
   @media ${device.tablet} {
-    flex-direction: column;
-    gap: 12px;
+    gap: ${spacing.xl2};
   }
 `;
 
@@ -170,7 +174,7 @@ const Value = styled.div`
 
 const TagInfo = styled.div`
   display: flex;
-  gap: 16px;
+  gap: ${spacing.md};
 `;
 
 const IconContainer = styled.button`

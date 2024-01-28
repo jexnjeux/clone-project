@@ -29,14 +29,13 @@ const Wrapper = styled.div<{ $totalImages: number }>`
       ? `repeat(${$totalImages}, 1fr)`
       : 'repeat(4, 1fr)'};
   grid-template-rows: repeat(5, 1fr);
-  gap: 1.25rem;
+  gap: ${spacing.xl2};
 
   @media ${device.laptop} {
     grid-template-columns: ${({ $totalImages }) =>
       0 < $totalImages && $totalImages < 3
         ? `repeat(${$totalImages}, 1fr)`
         : 'repeat(3, 1fr)'};
-    gap: 2rem;
   }
 
   @media ${device.tablet} {
@@ -44,6 +43,6 @@ const Wrapper = styled.div<{ $totalImages: number }>`
   }
 
   @media ${device.mobileL} {
-    gap: 1rem;
+    gap: ${spacing.lg};
   }
 `;

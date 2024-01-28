@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Button from './Button';
-import Spacing from './Spacing';
-import { device, palette } from '../../styles/theme';
+import { device, palette, spacing } from '../../styles/theme';
 import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
 import MenuIcon from '../../assets/icons/MenuIcon';
 
@@ -39,19 +38,16 @@ function Header() {
             <Button $solid size="lg">
               사진제출
             </Button>
-            <Spacing size={10} />
             <Link to="/bookmark">
               <Button size="lg">
                 <BookmarkButtonWrap>
                   <BookmarkText>북마크</BookmarkText>
-                  <Spacing size={4} />
                   <ButtonContainer>
                     <StyledHeartLineIcon />
                   </ButtonContainer>
                 </BookmarkButtonWrap>
               </Button>
             </Link>
-            <Spacing size={10} />
             <div>
               <UserInfo>Evie | evie@willog.io</UserInfo>
             </div>
@@ -82,16 +78,12 @@ const Nav = styled.nav`
   align-items: center;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  gap: 1rem;
 `;
 
 const Logo = styled.img`
   width: 120px;
 
-  @media ${device.mobileS},
-    ${device.mobileM},
-    ${device.mobileL},
-    ${device.tablet} {
+  @media ${device.tablet} {
     display: none;
   }
 `;
@@ -99,10 +91,8 @@ const Logo = styled.img`
 const MobileLogo = styled.img`
   display: none;
   width: 46px;
-  @media ${device.mobileS},
-    ${device.mobileM},
-    ${device.mobileL},
-    ${device.tablet} {
+
+  @media ${device.tablet} {
     display: block;
   }
 `;
@@ -110,10 +100,7 @@ const MobileLogo = styled.img`
 const IconContainer = styled.div`
   display: none;
 
-  @media ${device.mobileS},
-    ${device.mobileM},
-    ${device.mobileL},
-    ${device.tablet} {
+  @media ${device.tablet} {
     display: block;
     cursor: pointer;
   }
@@ -124,22 +111,27 @@ const StyledLink = styled(Link)`
 `;
 
 const MobileMenuContainer = styled.div`
-  position: absolute;
-  top: 52px;
-  right: 22px;
-  width: 240px;
-  height: 130px;
-  padding: 1rem;
-  border: 1px solid ${palette.gray600};
-  border-radius: 6px;
-  background-color: ${palette.background};
-  z-index: 20;
+  display: none;
+
+  @media ${device.tablet} {
+    display: block;
+    position: absolute;
+    top: 52px;
+    right: 22px;
+    width: 240px;
+    height: 130px;
+    padding: 1rem;
+    border: 1px solid ${palette.gray600};
+    border-radius: 6px;
+    background-color: ${palette.background};
+    z-index: 20;
+  }
 `;
 
 const MobileMenuItem = styled.li`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: ${spacing.md};
   font-weight: bold;
   cursor: pointer;
 `;
@@ -147,16 +139,15 @@ const MobileMenuItem = styled.li`
 const BookmarkButtonWrap = styled.div`
   display: flex;
   align-items: center;
+  gap: ${spacing.sm};
 `;
 
 const RightSection = styled.div`
   display: flex;
   align-items: center;
+  gap: ${spacing.md};
 
-  @media ${device.mobileS},
-    ${device.mobileM},
-    ${device.mobileL},
-    ${device.tablet} {
+  @media ${device.tablet} {
     display: none;
   }
 `;
