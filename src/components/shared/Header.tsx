@@ -18,8 +18,8 @@ function Header() {
       <HeaderWrapper>
         <Nav>
           <Link to="/">
-            <Logo src="/images/logo.png" alt="logo" />
-            <MobileLogo src="/images/mobile-logo.png" alt="logo" />
+            <Logo src="/logo.png" alt="logo" />
+            <MobileLogo src="/mobile-logo.png" alt="logo" />
           </Link>
           <IconContainer onClick={handleMenuClcik}>
             <MenuIcon />
