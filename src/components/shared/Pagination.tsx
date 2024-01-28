@@ -23,12 +23,12 @@ function Pagination({
 
   return (
     <Container>
-      <button
+      <ArrowButton
         onClick={() => void onClickArrow('left')}
         disabled={currentPage === 1}
       >
         <ArrowLeftIcon />
-      </button>
+      </ArrowButton>
       {pages.includes(ELLIPSIS) ? <ButtonWrap /> : null}
       {pages.map((page: string | number, idx) => {
         return currentPage === page ? (
@@ -46,12 +46,12 @@ function Pagination({
         );
       })}
       {pages.includes(ELLIPSIS) ? <ButtonWrap /> : null}
-      <button
+      <ArrowButton
         onClick={() => void onClickArrow('right')}
         disabled={currentPage === totalPage}
       >
         <ArrowRightIcon />
-      </button>
+      </ArrowButton>
     </Container>
   );
 }
@@ -75,4 +75,8 @@ const ButtonWrap = styled.div`
 
 const StyledButton = styled(Button)`
   border: none;
+`;
+
+const ArrowButton = styled.button`
+  margin-top: 2px;
 `;
