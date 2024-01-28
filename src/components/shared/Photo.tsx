@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { PhotoItem } from '../../types/photos';
-import useToggleBookmark from '../../hooks/useToggleBookmark';
-import StyledHeartLineIcon from '../../assets/icons/StyledHeartLineIcon';
-import StyledHeartFillIcon from '../../assets/icons/StyledHeartFillIcon';
+import BookmarkToggle from './BookmarkToggle';
 import { device } from '../../styles/theme';
 
 interface PhotoProps {
@@ -10,40 +8,25 @@ interface PhotoProps {
   url: string;
   alt: string;
   onClick: () => void;
-  isSkeleton?: boolean;
+  isFallback?: boolean;
 }
 
-function Photo({ photo, url, alt, onClick, isSkeleton = false }: PhotoProps) {
-  const { handleToggleBookmark, getBookmarkStatus } = useToggleBookmark();
-
-  const handleBookmarkClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    handleToggleBookmark(photo);
-  };
-
+function Photo({ photo, url, alt, onClick, isFallback = false }: PhotoProps) {
   return (
-    <Container onClick={onClick} $isSkeleton={isSkeleton}>
+    <Container onClick={onClick} $isFallback={isFallback}>
       <Thumbnail src={url} alt={alt} />
-      {!isSkeleton && (
-        <IconContainer onClick={(e) => handleBookmarkClick(e)}>
-          {getBookmarkStatus(photo.id) ? (
-            <StyledHeartFillIcon colorname="red" />
-          ) : (
-            <StyledHeartLineIcon colorname="white" />
-          )}
-        </IconContainer>
-      )}
+      {!isFallback && <BookmarkToggle photo={photo} />}
     </Container>
   );
 }
 
 export default Photo;
 
-const Container = styled.div<{ $isSkeleton: boolean }>`
+const Container = styled.div<{ $isFallback: boolean }>`
   width: 200px;
   height: 200px;
   position: relative;
-  cursor: ${({ $isSkeleton }) => ($isSkeleton ? 'initial' : 'pointer')};
+  cursor: ${({ $isFallback }) => ($isFallback ? 'initial' : 'pointer')};
 
   @media ${device.tablet} {
     width: 400px;
@@ -65,19 +48,4 @@ const Thumbnail = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`;
-
-const IconContainer = styled.div`
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  right: 4px;
-  bottom: 4px;
-
-  @media ${device.tablet} {
-    width: 32px;
-    height: 32px;
-    right: 8px;
-    bottom: 8px;
-  }
 `;

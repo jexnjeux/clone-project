@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { PhotoItem } from '../types/photos';
 import { fetchPhotos } from '../apis/main/photo';
 import { fetchRandomPhotos } from '../apis/main/randomPhotos';
 
 const usePhotos = () => {
-  const isInitialMount = useRef(true);
   const [searchTerms, setSearchTerms] = useState('');
   const [photos, setPhotos] = useState<PhotoItem[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -30,7 +29,7 @@ const usePhotos = () => {
     [searchTerms],
   );
 
-  const loadRandomImages = useCallback(async () => {
+  const loadRandomPhotos = useCallback(async () => {
     try {
       const data = await fetchRandomPhotos();
       setPhotos(data?.results ?? []);
@@ -39,17 +38,11 @@ const usePhotos = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      void loadRandomImages();
-    }
-  }, [loadRandomImages]);
-
   return {
     searchTerms,
     handleSearchTermsChange,
     loadPhotos,
+    loadRandomPhotos,
     photos,
     totalPages,
   };
