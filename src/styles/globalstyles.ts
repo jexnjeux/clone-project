@@ -61,6 +61,7 @@ body {
 		background-color: ${(props) => props.theme.palette.background};
     color: ${(props) => props.theme.palette.gray600};
 		line-height: 1.5;
+		font-family: 'Noto Sans KR', sans-serif;
   }
 `;
 
