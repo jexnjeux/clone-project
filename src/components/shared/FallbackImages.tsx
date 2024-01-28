@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import fallbackImages from '../../data/fallbackImages.json';
+import fallbackImages from '../../data/fallbackImages.ts';
 import Photo from './Photo';
 import { PhotoItem } from '../../types/photos';
 
