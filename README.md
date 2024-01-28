@@ -1,30 +1,94 @@
-# React + TypeScript + Vite
+# 📸 Unsplash Clone Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 기술스택
 
-Currently, two official plugins are available:
+- React 18
+- TypeScript
+- Styled-Component
+- Axios
+- Zustand
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 배포 주소
 
-## Expanding the ESLint configuration
+https://unsplash-clone-project-ochre.vercel.app/
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 설치 및 개발 환경 실행 방법
 
-- Configure the top-level `parserOptions` property like this:
+1. 저장소를 복제합니다.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+git clone https://github.com/jexnjeux/unsplash-clone-project.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. 프로젝트 폴더로 이동합니다:
+
+```
+cd unsplash-clone-project
+```
+
+3. 프로젝트에 필요한 의존성을 설치합니다.
+
+```
+yarn add
+```
+
+4. 개발 서버를 실행합니다.
+
+```
+yarn run dev
+```
+
+## 디렉토리 구조
+
+```
+src/
+├── apis/ # 외부 API와의 통신을 관리하는 함수, 서비스 저장
+├── assets/ # 정적 자원(이미지, 아이콘, 폰트) 저장
+├── components/ # 재사용 가능한 UI 컴포넌트 저장
+├── constants/ # 상수 저장
+├── data/ # 정적 데이터 저장
+├── hooks/ # 커스텀 훅 저장
+├── pages/ # 애플리케이션의 각 페이지에 해당하는 컴포넌트 저장
+├── stores/ # 상태 관리 로직 저장
+├── styles/ # 전역 스타일, 테마, 스타일 유틸리티 저장
+├── types/ # 타입을 정의하여 저장
+└── utils/ # 재사용될 수 있는 유틸리티 함수 저장
+```
+
+## 기능 구현
+
+### 0. 공통
+
+- ✅ 헤더 로고 아이콘 클릭 시 검색 페이지로 이동합니다.
+- ✅ 내비게이션의 우측 상단 북마크 버튼을 누르면 북마크 화면으로 이동합니다.
+
+### 1. 검색 페이지(메인)
+
+- ✅ 헤더 로고 아이콘 클릭 시 검색 페이지로 이동합니다.
+- ✅ 내비게이션의 우측 상단 북마크 버튼을 누르면 북마크 화면으로 이동합니다.
+- ✅ 검색된 이미지 클릭 시 상세 모달이 나타납니다.
+- ✅ 북마크 저장 여부에 따라 아이콘이 다르게 표시됩니다.
+  - 북마크 등록 전 : 빈 하트
+  - 북마크 등록 후 : 꽉 채운 하트
+- ✅ 페이지 전환 시 현재 페이지 번호와 이미지 리스트가 변경됩니다.
+
+### 2. 상세 모달
+
+- ✅ 이미지에 대한 정보를 나타냅니다.
+  - Header : 이미지 소유자, 북마크 체크 버튼
+  - Body : 이미지, 이미지 크기(가로 X 세로), 업로드 일자(n일 전), 다운로드 수(0,000), 키워드 태그
+- ✅ 우측 북마크 버튼을 누르면 이미지가 북마크에 등록/취소됩니다.
+- ✅ 모달 외부영역 클릭 혹은 좌측 X 클릭 시 상세 모달이 닫힙니다.
+
+### 3. 북마크 페이지
+
+- ✅ 이미지 내 북마크 버튼을 누르면 북마크 취소되고, 리스트에서 제외됩니다.
+- ✅ 검색 페이지와 동기화가 이루어집니다.
+
+### 4. 추가 사항
+
+- ✅ 반응형 디자인을 구현하여 다양한 화면 크기와 디바이스에 대응합니다.
+
+## 기타
+
+📌 Unsplashh Api 요청은 1시간에 50회로 제한되어있습니다. `제한된 요청 횟수를 모두 사용했습니다. 1시간 뒤 다시 시도해 주세요.` 메시지가 나타나면 일정 시간 후 다시 시도해 주세요.
