@@ -8,25 +8,25 @@ interface PhotoProps {
   url: string;
   alt: string;
   onClick: () => void;
-  isSkeleton?: boolean;
+  isFallback?: boolean;
 }
 
-function Photo({ photo, url, alt, onClick, isSkeleton = false }: PhotoProps) {
+function Photo({ photo, url, alt, onClick, isFallback = false }: PhotoProps) {
   return (
-    <Container onClick={onClick} $isSkeleton={isSkeleton}>
+    <Container onClick={onClick} $isFallback={isFallback}>
       <Thumbnail src={url} alt={alt} />
-      {!isSkeleton && <BookmarkToggle photo={photo} />}
+      {!isFallback && <BookmarkToggle photo={photo} />}
     </Container>
   );
 }
 
 export default Photo;
 
-const Container = styled.div<{ $isSkeleton: boolean }>`
+const Container = styled.div<{ $isFallback: boolean }>`
   width: 200px;
   height: 200px;
   position: relative;
-  cursor: ${({ $isSkeleton }) => ($isSkeleton ? 'initial' : 'pointer')};
+  cursor: ${({ $isFallback }) => ($isFallback ? 'initial' : 'pointer')};
 
   @media ${device.tablet} {
     width: 400px;

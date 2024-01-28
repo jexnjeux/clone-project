@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PhotoItem } from '../types/photos';
 import { calculatePagination } from '../utils/paginationUtils';
-import { FIRST_PAGE, PHOTOS_PER_PAGE } from '../constants/pagination';
+import { FIRST_PAGE } from '../constants/pagination';
 import { fetchPhotoDetails } from '../apis/main/photoDetails';
 import usePhotos from '../hooks/usePhotos';
 import useModal from '../hooks/useModal';
@@ -15,27 +15,37 @@ import Modal from '../components/shared/Modal';
 import Spacing from '../components/shared/Spacing';
 import Pagination from '../components/shared/Pagination';
 import Loading from '../components/shared/Loading';
-import Skeleton from '../assets/images/emptyBox.png';
-
-const skeletonPhotoItem: Partial<PhotoItem> = {
-  id: '',
-  alt_description: 'skeleton',
-};
+import FallbackImages from '../components/shared/FallbackImages';
 
 function MainPage() {
-  const { handleSearchTermsChange, loadPhotos, photos, totalPages } =
-    usePhotos();
+  const isInitialMount = useRef(true);
+
+  const {
+    handleSearchTermsChange,
+    loadPhotos,
+    loadRandomPhotos,
+    photos,
+    totalPages,
+  } = usePhotos();
   const { openModal, closeModal, isOpen } = useModal();
   const { currentPage, changePage } = usePageChage();
   const isLoading = useLoadingStore((state) => state.requestCount > 0);
 
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
+  const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
       setSelectedPhoto(null);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      loadRandomPhotos().catch(() => setApiError(true));
+    }
+  }, [loadRandomPhotos]);
 
   const handlePhotoClick = async (id: string) => {
     try {
@@ -69,20 +79,6 @@ function MainPage() {
     void loadPhotos(newPage);
   };
 
-  const renderEmptyPhotos = () => {
-    return Array.from({ length: PHOTOS_PER_PAGE }).map((_, index) => (
-      <Photo
-        key={`empty-${index}`}
-        photo={skeletonPhotoItem as PhotoItem}
-        aria-hidden="true"
-        url={Skeleton}
-        alt="skeleton"
-        onClick={() => {}}
-        isSkeleton
-      />
-    ));
-  };
-
   return (
     <>
       {isOpen && selectedPhoto ? (
@@ -102,19 +98,23 @@ function MainPage() {
         ) : (
           <>
             <Photos totalImages={photos.length}>
-              {photos.length > 0
-                ? photos.map((photo) => {
-                    return (
-                      <Photo
-                        key={photo.id}
-                        photo={photo}
-                        alt={photo.alt_description ?? photo.id}
-                        url={photo.urls.small}
-                        onClick={() => void handlePhotoClick(photo.id)}
-                      />
-                    );
-                  })
-                : renderEmptyPhotos()}
+              {photos.length > 0 ? (
+                photos.map((photo) => {
+                  return (
+                    <Photo
+                      key={photo.id}
+                      photo={photo}
+                      alt={photo.alt_description ?? photo.id}
+                      url={photo.urls.small}
+                      onClick={() => void handlePhotoClick(photo.id)}
+                    />
+                  );
+                })
+              ) : apiError ? (
+                <FallbackImages />
+              ) : (
+                <></>
+              )}
             </Photos>
             <Spacing direction="vertical" size={24} />
             {photos.length > 0 && totalPages > 0 && (
