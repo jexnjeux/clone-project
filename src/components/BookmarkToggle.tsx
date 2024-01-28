@@ -23,9 +23,9 @@ function BookmarkToggle({ photo }: PhotoProps) {
       aria-label="Toggle bookmark"
     >
       {getBookmarkStatus(photo.id) ? (
-        <StyledHeartFillIcon colorname="red" />
+        <StyledHeartFillIcon color="red" />
       ) : (
-        <StyledHeartLineIcon colorname="white" />
+        <StyledHeartLineIcon color="white" />
       )}
     </IconButton>
   );

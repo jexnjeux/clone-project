@@ -27,7 +27,7 @@ function PhotoDetails({ photo }: PhotoDetailsProps) {
           <ButtonGroup>
             <IconContainer onClick={(e) => handleBookmarkClick(e)}>
               {getBookmarkStatus(photo.id) ? (
-                <StyledHeartFillIcon colorname="red" />
+                <StyledHeartFillIcon color="red" />
               ) : (
                 <StyledHeartLineIcon />
               )}
