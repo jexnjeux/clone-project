@@ -10,7 +10,7 @@ const useToggleBookmark = () => {
   };
 
   const getBookmarkStatus = (id: string) => {
-    return !!bookmarks[id] ?? false;
+    return !!bookmarks[id] || false;
   };
 
   return { handleToggleBookmark, getBookmarkStatus };

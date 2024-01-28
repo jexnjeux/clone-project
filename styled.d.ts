@@ -1,6 +1,6 @@
 import 'styled-components';
 import {
-  BreakpointTypes,
+  DeviceTypes,
   FontTypes,
   PaletteTypes,
   SpacingTypes,
@@ -11,6 +11,6 @@ declare module 'styled-components' {
     palette: PaletteTypes;
     font: FontTypes;
     spacing: SpacingTypes;
-    breakpoint: BreakpointTypes;
+    device: DeviceTypes;
   }
 }
