@@ -26,5 +26,4 @@ export default App;
 
 const Layout = styled.div`
   padding-bottom: 2rem;
-  overflow-y: scroll;
 `;
