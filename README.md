@@ -29,7 +29,7 @@ cd unsplash-clone-project
 3. 프로젝트에 필요한 의존성을 설치합니다.
 
 ```
-yarn add
+yarn install
 ```
 
 4. 개발 서버를 실행합니다.
